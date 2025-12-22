@@ -1,7 +1,30 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight, BookOpen, Calendar } from 'lucide-react'
+import ImageCarousel from '../components/ImageCarousel'
 
 const Home = () => {
+  const carouselImages = [
+    {
+      src: '/src/pages/media/vc.jpeg',
+      alt: 'Vice Chancellor',
+      title: 'Leadership & Vision'
+    },
+    {
+      src: '/src/pages/media/advisor1.jpeg',
+      alt: 'Advisory Board Member 1',
+      title: 'Expert Advisory Board'
+    },
+    {
+      src: '/src/pages/media/advisor2.jpeg',
+      alt: 'Advisory Board Member 2',
+      title: 'Research Excellence'
+    },
+    {
+      src: '/src/pages/media/advisor3.jpeg',
+      alt: 'Advisory Board Member 3',
+      title: 'Academic Leadership'
+    }
+  ]
   const researchAreas = [
     {
       title: 'Computer Science',
@@ -66,6 +89,18 @@ const Home = () => {
 
   return (
     <div>
+      {/* Image Carousel Section */}
+      <section className="bg-white py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <ImageCarousel 
+            images={carouselImages}
+            autoPlay={true}
+            autoPlayInterval={5000}
+            showThumbnails={true}
+          />
+        </div>
+      </section>
+
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary-50 to-secondary-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
