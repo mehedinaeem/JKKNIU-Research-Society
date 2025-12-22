@@ -60,8 +60,8 @@ const ImageCarousel = ({
         <div className="absolute bottom-0 left-0 w-72 h-72 bg-secondary-200 rounded-full opacity-10 -ml-36 -mb-36"></div>
         
         {/* Main carousel container */}
-        <div className="relative z-10 py-4 md:py-8">
-          <div className="bg-white rounded-none md:rounded-xl overflow-hidden shadow-2xl">
+        <div className="relative z-10 py-0">
+          <div className="bg-white rounded-none overflow-hidden shadow-none">
             {/* Main image display area */}
             <div className="relative w-full bg-secondary-900">
               {/* Responsive height container */}

@@ -51,7 +51,7 @@ const Home = () => {
   return (
     <div>
       {/* Image Carousel Section */}
-      <section className="bg-white py-8 w-full">
+      <section className="bg-white py-0 w-full">
         <ImageCarousel 
           images={carouselImages}
           autoPlay={true}
