@@ -261,9 +261,33 @@ Forms currently show demo notifications. Integrate with:
 
 ## 🚀 Deployment
 
-The project can be deployed to:
+### Netlify (Recommended - Auto CI/CD)
+
+The project is configured for automatic deployment to Netlify:
+
+**Quick Setup:**
+1. Push code to GitHub (testing-branch)
+2. Go to [netlify.com](https://netlify.com)
+3. Click "New site from Git"
+4. Connect GitHub repository
+5. Select testing-branch
+6. Click Deploy!
+
+**Every push automatically:**
+- Builds the project
+- Runs tests
+- Deploys to Netlify CDN
+- Updates your live site
+
+See [NETLIFY_DEPLOYMENT.md](./NETLIFY_DEPLOYMENT.md) for detailed instructions.
+
+**Configuration files:**
+- `netlify.toml` - Build settings and redirects
+- `.nvmrc` - Node.js version (18.18.0)
+
+### Other Platforms
+
 - Vercel
-- Netlify
 - GitHub Pages
 - AWS S3 + CloudFront
 - Any static hosting service
