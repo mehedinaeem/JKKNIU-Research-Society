@@ -57,7 +57,7 @@ const Home = () => {
             images={carouselImages}
             autoPlay={true}
             autoPlayInterval={5000}
-            showThumbnails={true}
+            imagesPerSlide={4}
           />
         </div>
       </section>
