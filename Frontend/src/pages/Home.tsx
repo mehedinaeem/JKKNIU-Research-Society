@@ -51,15 +51,12 @@ const Home = () => {
   return (
     <div>
       {/* Image Carousel Section */}
-      <section className="bg-white py-8">
-        <div className="max-w-4xl mx-auto px-4 py-20 sm:px-6 lg:px-8">
-          <ImageCarousel 
-            images={carouselImages}
-            autoPlay={true}
-            autoPlayInterval={5000}
-            imagesPerSlide={4}
-          />
-        </div>
+      <section className="bg-white py-8 w-full">
+        <ImageCarousel 
+          images={carouselImages}
+          autoPlay={true}
+          autoPlayInterval={5000}
+        />
       </section>
 
       {/* Hero Section */}
