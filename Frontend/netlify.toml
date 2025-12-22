@@ -3,7 +3,7 @@
 # The root netlify.toml handles the base directory configuration
 
 [build]
-  command = "npm ci && npm run build"
+  command = "npm ci --include=dev && npm run build"
   publish = "dist"
 
 # Environment variables (add these in Netlify dashboard for production)
