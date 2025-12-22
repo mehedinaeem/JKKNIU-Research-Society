@@ -54,9 +54,16 @@ const ImageCarousel = ({
 
   return (
     <div className="w-full">
-      <div className="relative w-full bg-black rounded-lg overflow-hidden group">
-        {/* Main carousel container */}
-        <div className="relative w-full h-64 md:h-80 lg:h-96">
+      {/* Enhanced background with gradient */}
+      <div className="relative w-full overflow-hidden bg-gradient-to-br from-primary-50 via-white to-secondary-50 rounded-2xl p-4 md:p-8">
+        {/* Decorative shapes */}
+        <div className="absolute top-0 right-0 w-80 h-80 bg-primary-200 rounded-full opacity-10 -mr-40 -mt-40"></div>
+        <div className="absolute bottom-0 left-0 w-72 h-72 bg-secondary-200 rounded-full opacity-10 -ml-36 -mb-36"></div>
+        
+        {/* Main carousel */}
+        <div className="relative z-10 bg-white rounded-xl overflow-hidden group shadow-lg">
+          {/* Main carousel container */}
+          <div className="relative w-full h-64 md:h-80 lg:h-96">
           {/* Images */}
           <div className="relative w-full h-full">
             {images.map((image, index) => (
@@ -130,6 +137,7 @@ const ImageCarousel = ({
             ))}
           </div>
         )}
+        </div>
       </div>
     </div>
   )
