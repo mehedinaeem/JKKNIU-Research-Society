@@ -1,12 +1,12 @@
-# Netlify Build Configuration for JKKNIU Research Society Frontend
-# This file is in the Frontend subfolder
-# The root netlify.toml handles the base directory configuration
+# Root netlify.toml - Points to Frontend subfolder
+# This file is at: JKKNIU-Research-Society/netlify.toml
+# It tells Netlify to use the Frontend folder as base
 
 [build]
+  base = "Frontend"
   command = "npm run build"
-  publish = "dist"
+  publish = "Frontend/dist"
 
-# Environment variables (add these in Netlify dashboard for production)
 [build.environment]
   NODE_VERSION = "18.18.0"
   NODE_ENV = "production"
