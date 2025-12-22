@@ -56,7 +56,7 @@ const ImageCarousel = ({
     <div className="w-full">
       <div className="relative w-full bg-black rounded-lg overflow-hidden group">
         {/* Main carousel container */}
-        <div className="relative w-full h-96 md:h-[500px] lg:h-[600px]">
+        <div className="relative w-full h-64 md:h-80 lg:h-96">
           {/* Images */}
           <div className="relative w-full h-full">
             {images.map((image, index) => (
@@ -71,14 +71,6 @@ const ImageCarousel = ({
                   alt={image.alt}
                   className="w-full h-full object-cover"
                 />
-                {/* Dark overlay */}
-                <div className="absolute inset-0 bg-black bg-opacity-20"></div>
-                {/* Title overlay */}
-                {image.title && (
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-6">
-                    <h3 className="text-white text-2xl font-bold">{image.title}</h3>
-                  </div>
-                )}
               </div>
             ))}
           </div>
