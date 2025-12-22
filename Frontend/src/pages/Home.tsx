@@ -5,22 +5,22 @@ import ImageCarousel from '../components/ImageCarousel'
 const Home = () => {
   const carouselImages = [
     {
-      src: '/src/pages/media/vc.jpeg',
+      src: '/media/vc.jpeg',
       alt: 'Vice Chancellor',
       title: 'Leadership & Vision'
     },
     {
-      src: '/src/pages/media/advisor1.jpeg',
+      src: '/media/advisor1.jpeg',
       alt: 'Advisory Board Member 1',
       title: 'Expert Advisory Board'
     },
     {
-      src: '/src/pages/media/advisor2.jpeg',
+      src: '/media/advisor2.jpeg',
       alt: 'Advisory Board Member 2',
       title: 'Research Excellence'
     },
     {
-      src: '/src/pages/media/advisor3.jpeg',
+      src: '/media/advisor3.jpeg',
       alt: 'Advisory Board Member 3',
       title: 'Academic Leadership'
     }
