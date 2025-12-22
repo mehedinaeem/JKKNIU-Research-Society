@@ -64,8 +64,8 @@ const ImageCarousel = ({
           <div className="bg-white rounded-none overflow-hidden shadow-none">
             {/* Main image display area */}
             <div className="relative w-full bg-secondary-900">
-              {/* Responsive height container */}
-              <div className="relative w-full pb-[56.25%]">
+              {/* Responsive height container - Reduced height */}
+              <div className="relative w-full pb-[40%]">
                 <img
                   src={images[currentIndex].src}
                   alt={images[currentIndex].alt}
