@@ -32,7 +32,7 @@ const Home = () => {
       <HeroSection />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary-50 to-secondary-50">
+      <section id="intro" data-navbar-theme="light" className="bg-gradient-to-br from-primary-50 to-secondary-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold text-secondary-900 mb-6">
@@ -57,7 +57,7 @@ const Home = () => {
       </section>
 
       {/* Mission Section */}
-      <section className="py-16 bg-white">
+      <section id="mission" data-navbar-theme="light" className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-secondary-900 mb-4">Our Mission</h2>
@@ -71,7 +71,7 @@ const Home = () => {
       </section>
 
       {/* Research Areas */}
-      <section className="py-16 bg-secondary-50">
+      <section id="research" data-navbar-theme="light" className="py-16 bg-secondary-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-secondary-900 mb-4">Research Areas</h2>
@@ -97,7 +97,7 @@ const Home = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-primary-600 text-white">
+      <section id="stats" data-navbar-theme="dark" className="py-16 bg-primary-600 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
             <div>

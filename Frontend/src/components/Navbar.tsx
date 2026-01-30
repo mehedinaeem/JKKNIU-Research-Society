@@ -1,10 +1,50 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
 
+type NavbarTheme = 'dark' | 'light' | 'transparent'
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [currentTheme, setCurrentTheme] = useState<NavbarTheme>('transparent')
   const location = useLocation()
+
+  // Check if we're on a page (not home)
+  const isOnSubPage = location.pathname !== '/'
+
+  // Detect scroll position and current section
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY
+      setIsScrolled(scrollY > 100)
+
+      // If at top of page (hero section), keep transparent (only on home page)
+      if (scrollY < 100 && !isOnSubPage) {
+        setCurrentTheme('transparent')
+        return
+      }
+
+      // Find which section is currently in view
+      const sections = document.querySelectorAll('section[data-navbar-theme]')
+      let foundTheme: NavbarTheme = 'dark' // default when scrolled
+
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect()
+        // Check if section is at the top of viewport
+        if (rect.top <= 80 && rect.bottom > 80) {
+          const theme = section.getAttribute('data-navbar-theme') as NavbarTheme
+          foundTheme = theme || 'dark'
+        }
+      })
+
+      setCurrentTheme(foundTheme)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    handleScroll() // Initial check
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [isOnSubPage])
 
   const navigation = [
     { name: 'Home', href: '/' },
@@ -21,36 +61,81 @@ const Navbar = () => {
 
   const isActive = (href: string) => location.pathname === href
 
+  // Check if any nav item is active (for full navbar color)
+  const hasActiveItem = navigation.some(item => isActive(item.href))
+
+  // Dynamic styles based on theme
+  const getNavbarStyles = () => {
+    // If on sub page or scrolled, show solid background
+    if (isOnSubPage || isScrolled) {
+      // Use blue background when a nav item is active
+      if (hasActiveItem && isScrolled) {
+        return 'bg-primary-700/95 backdrop-blur-md shadow-lg'
+      }
+
+      switch (currentTheme) {
+        case 'light':
+          return 'bg-white/95 backdrop-blur-md shadow-lg'
+        case 'dark':
+          return 'bg-primary-800/95 backdrop-blur-md shadow-lg'
+        default:
+          return 'bg-primary-800/95 backdrop-blur-md shadow-lg'
+      }
+    }
+    return 'bg-transparent'
+  }
+
+  const getTextColor = () => {
+    if (!isScrolled && !isOnSubPage) return 'text-white'
+    return currentTheme === 'light' ? 'text-secondary-900' : 'text-white'
+  }
+
+  const getActiveColor = () => {
+    // Active item gets highlighted background
+    if (!isScrolled && !isOnSubPage) {
+      return 'text-white bg-primary-600/80 rounded-full px-4'
+    }
+    return currentTheme === 'light'
+      ? 'text-white bg-primary-600 rounded-full px-4'
+      : 'text-white bg-white/20 rounded-full px-4'
+  }
+
+  const getHoverColor = () => {
+    if (!isScrolled && !isOnSubPage) return 'hover:text-primary-300 hover:bg-white/10 rounded-full'
+    return currentTheme === 'light'
+      ? 'hover:text-primary-600 hover:bg-primary-50 rounded-full'
+      : 'hover:text-white hover:bg-white/10 rounded-full'
+  }
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-transparent">
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${getNavbarStyles()}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-20">
+        <div className={`flex justify-between transition-all duration-300 ${isScrolled || isOnSubPage ? 'h-16' : 'h-20'}`}>
           <div className="flex items-center">
             <Link to="/" className="flex-shrink-0">
-              <span className="text-2xl font-bold text-white drop-shadow-lg">
+              <span className={`text-2xl font-bold transition-colors duration-300 ${getTextColor()} ${!isScrolled && !isOnSubPage ? 'drop-shadow-lg' : ''}`}>
                 JKKNIURS
               </span>
             </Link>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-4 lg:space-x-6">
+          <div className="hidden md:flex items-center space-x-2 lg:space-x-3">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 to={item.href}
                 className={`${isActive(item.href)
-                    ? 'text-yellow-400 border-b-2 border-yellow-400'
-                    : 'text-white hover:text-yellow-400'
-                  } px-2 lg:px-3 py-2 text-sm lg:text-base font-medium transition-colors duration-200 whitespace-nowrap drop-shadow-md`}
+                  ? getActiveColor()
+                  : `${getTextColor()} ${getHoverColor()}`
+                  } px-3 lg:px-4 py-2 text-sm lg:text-base font-medium transition-all duration-200 whitespace-nowrap ${!isScrolled && !isOnSubPage ? 'drop-shadow-md' : ''}`}
               >
                 {item.name}
               </Link>
             ))}
             <Link
               to="/login"
-              className="px-6 py-2 rounded-full font-semibold text-secondary-900 transition-all duration-300 hover:scale-105"
-              style={{ backgroundColor: '#F5A623' }}
+              className="ml-4 px-6 py-2 rounded-full font-semibold text-white bg-primary-600 hover:bg-primary-700 transition-all duration-300 hover:scale-105 shadow-md"
             >
               Login
             </Link>
@@ -60,7 +145,7 @@ const Navbar = () => {
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-white hover:text-yellow-400 p-2"
+              className={`${getTextColor()} hover:bg-white/10 p-2 rounded-lg transition-colors duration-300`}
             >
               {isOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
@@ -71,15 +156,15 @@ const Navbar = () => {
       {/* Mobile Navigation */}
       {isOpen && (
         <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-black/90 backdrop-blur-md">
+          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 backdrop-blur-md bg-primary-800/95">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 to={item.href}
                 className={`${isActive(item.href)
-                    ? 'text-yellow-400 bg-white/10'
-                    : 'text-white hover:text-yellow-400 hover:bg-white/10'
-                  } block px-3 py-2 text-base font-medium transition-colors duration-200`}
+                  ? 'text-white bg-primary-600 rounded-lg'
+                  : 'text-white/90 hover:text-white hover:bg-white/10 rounded-lg'
+                  } block px-4 py-3 text-base font-medium transition-colors duration-200`}
                 onClick={() => setIsOpen(false)}
               >
                 {item.name}
@@ -87,8 +172,7 @@ const Navbar = () => {
             ))}
             <Link
               to="/login"
-              className="block text-center mt-4 px-6 py-2 rounded-full font-semibold text-secondary-900"
-              style={{ backgroundColor: '#F5A623' }}
+              className="block text-center mt-4 px-6 py-3 rounded-full font-semibold text-white bg-primary-600 hover:bg-primary-700"
               onClick={() => setIsOpen(false)}
             >
               Login

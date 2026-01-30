@@ -41,16 +41,13 @@ const HeroSection = () => {
                             JKKNIU
                         </h1>
 
-                        {/* Golden Subtitle - Research Society */}
-                        <h2
-                            className="text-4xl md:text-6xl lg:text-7xl font-bold text-center mt-4 animate-title-delay italic drop-shadow-2xl"
-                            style={{ color: '#F5A623' }}
-                        >
+                        {/* Blue Subtitle - Research Society */}
+                        <h2 className="text-5xl md:text-7xl lg:text-8xl font-bold text-center mt-4 animate-title-delay italic drop-shadow-2xl text-primary-300">
                             Research Society
                         </h2>
 
                         {/* Tagline */}
-                        <p className="text-white text-xl md:text-2xl lg:text-3xl mt-8 animate-fade-up font-light tracking-widest text-center drop-shadow-lg">
+                        <p className="text-white/90 text-xl md:text-2xl lg:text-3xl mt-8 animate-fade-up font-light tracking-widest text-center drop-shadow-lg">
                             Advancing Knowledge & Inspiring Innovation
                         </p>
 
@@ -58,15 +55,14 @@ const HeroSection = () => {
                         <div className="flex flex-col sm:flex-row gap-4 mt-10 animate-fade-up-delay">
                             <Link
                                 to="/membership"
-                                className="group flex items-center gap-2 px-8 py-3 rounded-full font-semibold text-secondary-900 transition-all duration-300 hover:scale-105 hover:shadow-lg"
-                                style={{ backgroundColor: '#F5A623' }}
+                                className="group flex items-center gap-2 px-8 py-3 rounded-full font-semibold text-white bg-primary-600 hover:bg-primary-700 transition-all duration-300 hover:scale-105 hover:shadow-lg shadow-md"
                             >
                                 Join Us
                                 <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                             </Link>
                             <Link
                                 to="/events"
-                                className="group flex items-center gap-2 px-8 py-3 rounded-full font-semibold text-white border-2 border-white/80 hover:bg-white/10 transition-all duration-300 hover:scale-105"
+                                className="group flex items-center gap-2 px-8 py-3 rounded-full font-semibold text-white border-2 border-primary-400 hover:bg-primary-600/30 transition-all duration-300 hover:scale-105"
                             >
                                 Upcoming Events
                                 <Calendar size={18} />
