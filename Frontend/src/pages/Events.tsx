@@ -1,72 +1,130 @@
-import { Calendar, Clock, MapPin, Users, ExternalLink } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { Calendar, Clock, MapPin, Users } from 'lucide-react'
 
 const Events = () => {
   const upcomingEvents = [
     {
       id: 1,
-      title: 'International Conference on AI Research 2025',
-      date: 'March 15-17, 2025',
-      time: '9:00 AM - 6:00 PM',
-      location: 'JKKNIU Main Auditorium',
-      description: 'A premier conference bringing together leading researchers in artificial intelligence, machine learning, and data science.',
-      type: 'Conference',
-      attendees: 300,
-      registrationDeadline: 'February 28, 2025',
-      speakers: ['Dr. Sarah Johnson (MIT)', 'Prof. Ahmed Hassan (Stanford)', 'Dr. Maria Garcia (Oxford)']
-    },
-    {
-      id: 2,
-      title: 'Research Methodology Workshop',
-      date: 'January 20, 2025',
-      time: '10:00 AM - 4:00 PM',
-      location: 'Computer Science Lab 201',
-      description: 'Hands-on workshop covering advanced research methodologies, statistical analysis, and academic writing skills.',
-      type: 'Workshop',
-      attendees: 50,
-      registrationDeadline: 'January 15, 2025',
-      speakers: ['Prof. Rahman (JKKNIU)', 'Dr. Fatima Ahmed (BUET)']
-    },
-    {
-      id: 3,
-      title: 'Student Research Symposium',
-      date: 'February 10, 2025',
-      time: '9:00 AM - 5:00 PM',
-      location: 'JKKNIU Convention Center',
-      description: 'Annual symposium showcasing undergraduate and graduate research projects across all disciplines.',
-      type: 'Symposium',
-      attendees: 200,
-      registrationDeadline: 'January 30, 2025',
-      speakers: ['Various Student Researchers']
+      title: 'Young Researcher Recruitment 6.0',
+      date: 'February 15, 2025',
+      time: '10:00 AM - 5:00 PM',
+      location: 'JKKNIU Main Campus',
+      description: 'Join the Young Researcher Recruitment 6.0 program! This is an exciting opportunity for undergraduate and graduate students to showcase their research skills, collaborate with experienced researchers, and contribute to groundbreaking research projects at JKKNIU Research Society.',
+      type: 'Recruitment',
+      attendees: 250,
+      registrationDeadline: 'February 10, 2025',
+      speakers: ['JKKNIU Research Society Leadership', 'Senior Researchers and Mentors']
     }
   ]
 
   const pastEvents = [
     {
-      id: 4,
-      title: 'Sustainable Development Seminar',
-      date: 'November 15, 2024',
-      location: 'JKKNIU Auditorium',
-      description: 'Discussions on sustainable development goals and research opportunities.',
-      type: 'Seminar',
+      id: 2,
+      title: 'Basic Research Training in Writing & Structuring Research Reports',
+      date: 'September 13, 2025',
+      location: 'Online / JKKNIU',
+      description: 'Dr. Tion R. Swaford, Marian University, USA conducted this session on writing and structuring research reports.',
+      type: 'Workshop',
+      attendees: 100
+    },
+    {
+      id: 3,
+      title: 'Basic Research ও Research Methodology কর্মশালা',
+      date: 'June 15, 2025',
+      location: 'JKKNIU Campus',
+      description: 'Part of the ongoing workshop series on Basic Research and Methodology.',
+      type: 'Workshop',
       attendees: 120
     },
     {
-      id: 5,
-      title: 'Data Science Bootcamp',
-      date: 'October 20-22, 2024',
-      location: 'Computer Lab Complex',
-      description: 'Three-day intensive training in data science and machine learning.',
+      id: 4,
+      title: 'Basics of Social Research কর্মশালা',
+      date: 'December 1, 2024',
+      location: 'JKKNIU Campus',
+      description: 'Conducted by Dr. Md. Bakhtiar Uddin, JKKNIU.',
       type: 'Workshop',
-      attendees: 75
+      attendees: 80
+    },
+    {
+      id: 5,
+      title: 'Stipendium Hungaricum স্কলারশিপ ওয়েবিনার',
+      date: 'January 13, 2024',
+      location: 'Online Webinar',
+      description: 'A session guiding students on the Stipendium Hungaricum Scholarship application process.',
+      type: 'Webinar',
+      attendees: 200
     },
     {
       id: 6,
-      title: 'Research Ethics Panel Discussion',
-      date: 'September 28, 2024',
-      location: 'Conference Room A',
-      description: 'Panel discussion on research ethics and academic integrity.',
-      type: 'Panel Discussion',
+      title: 'ফ্রেশার্স রিসেপশন ও উচ্চশিক্ষা বিষয়ক সেমিনার',
+      date: 'June 5, 2024',
+      location: 'JKKNIU Auditorium',
+      description: 'Annual reception for new batches and seminar on higher education opportunities.',
+      type: 'Seminar',
+      attendees: 300
+    },
+    {
+      id: 7,
+      title: 'Research Excellence: Roadmap for Emerging Scholars',
+      date: 'November 26, 2023',
+      location: 'JKKNIU Campus',
+      description: 'Speaker: Dr. Allahi, recognized as one of the world\'s top 2% researchers.',
+      type: 'Seminar',
+      attendees: 150
+    },
+    {
+      id: 8,
+      title: 'রিসার্চ প্রপোজাল ও কলাম রাইটিং: ক্যারিয়ার পরিকল্পনা',
+      date: 'October 10, 2023',
+      location: 'JKKNIU Campus',
+      description: 'Workshop on writing research proposals and newspaper columns for career development.',
+      type: 'Workshop',
+      attendees: 100
+    },
+    {
+      id: 9,
+      title: 'Python প্রোগ্রামিং কর্মশালা',
+      date: 'November 26, 2022',
+      location: 'Computer Lab, JKKNIU',
+      description: 'Hands-on training on Python programming for research and data analysis.',
+      type: 'Workshop',
+      attendees: 60
+    },
+    {
+      id: 10,
+      title: 'MS Office ও Mendeley কর্মশালা',
+      date: 'November 24, 2022',
+      location: 'JKKNIU Campus',
+      description: 'Conducted by Sabuj Chandra Bhowmik, Commonwealth Scholar.',
+      type: 'Workshop',
       attendees: 80
+    },
+    {
+      id: 11,
+      title: 'SPSS কর্মশালা',
+      date: 'November 22, 2022',
+      location: 'JKKNIU Campus',
+      description: 'Conducted by Professor Dr. Raju Ahmed.',
+      type: 'Workshop',
+      attendees: 70
+    },
+    {
+      id: 12,
+      title: 'MATLAB কর্মশালা',
+      date: 'October 21, 2022',
+      location: 'JKKNIU Campus',
+      description: 'Conducted by Professor Dr. Sheikh Sujan Ali.',
+      type: 'Workshop',
+      attendees: 70
+    },
+    {
+      id: 13,
+      title: 'JKKNIU Research Society প্রতিষ্ঠা',
+      date: '2019',
+      location: 'JKKNIU',
+      description: 'Founding of JKKNIU Research Society and official recognition in Kaler Kantho.',
+      type: 'Milestone',
+      attendees: 0
     }
   ]
 
@@ -77,6 +135,7 @@ const Events = () => {
       case 'Symposium': return 'bg-purple-100 text-purple-800'
       case 'Seminar': return 'bg-yellow-100 text-yellow-800'
       case 'Panel Discussion': return 'bg-red-100 text-red-800'
+      case 'Recruitment': return 'bg-orange-100 text-orange-800'
       default: return 'bg-gray-100 text-gray-800'
     }
   }
@@ -110,60 +169,72 @@ const Events = () => {
 
           <div className="space-y-8">
             {upcomingEvents.map((event) => (
-              <div key={event.id} className="bg-white border border-secondary-200 rounded-lg p-8 hover:shadow-lg transition-shadow">
-                <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-6">
-                  <div className="flex-1">
-                    <div className="flex items-center space-x-3 mb-3">
-                      <span className={`px-3 py-1 rounded-full text-sm font-medium ${getEventTypeColor(event.type)}`}>
-                        {event.type}
-                      </span>
-                      <span className="text-secondary-500 text-sm">Registration deadline: {event.registrationDeadline}</span>
+              <div key={event.id} className="rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
+                {/* Event Banner */}
+                <div
+                  className="hidden md:flex relative w-full h-64 md:h-80 items-center justify-center overflow-hidden bg-cover bg-center md:bg-[url('/media/banner.png')]"
+                >
+                  <div className="absolute inset-0 bg-black/0"></div>
+                  {/* Title removed as it is in the background image */}
+                </div>
+
+                {/* Event Details */}
+                <div className="bg-white border border-secondary-200 p-8">
+                  <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-6">
+                    <div className="flex-1">
+                      <div className="flex items-center space-x-3 mb-3">
+                        <span className={`px-3 py-1 rounded-full text-sm font-medium ${getEventTypeColor(event.type)}`}>
+                          {event.type}
+                        </span>
+                        <span className="text-secondary-500 text-sm">Registration deadline: {event.registrationDeadline}</span>
+                      </div>
+                      <p className="text-secondary-600 mb-4">{event.description}</p>
+
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                        <div className="flex items-center space-x-2">
+                          <Calendar className="text-primary-600" size={20} />
+                          <span className="text-secondary-700">{event.date}</span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Clock className="text-primary-600" size={20} />
+                          <span className="text-secondary-700">{event.time}</span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <MapPin className="text-primary-600" size={20} />
+                          <span className="text-secondary-700">{event.location}</span>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center space-x-4 mb-4">
+                        <div className="flex items-center space-x-2">
+                          <Users className="text-primary-600" size={20} />
+                          <span className="text-secondary-700">Expected: {event.attendees} attendees</span>
+                        </div>
+                      </div>
+
+                      {event.speakers && (
+                        <div className="mb-4">
+                          <h4 className="font-semibold text-secondary-900 mb-2">Featured Speakers:</h4>
+                          <ul className="text-secondary-600">
+                            {event.speakers.map((speaker, index) => (
+                              <li key={index} className="flex items-center space-x-2">
+                                <span className="w-1.5 h-1.5 bg-primary-600 rounded-full"></span>
+                                <span>{speaker}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
                     </div>
-                    <h3 className="text-2xl font-bold text-secondary-900 mb-3">{event.title}</h3>
-                    <p className="text-secondary-600 mb-4">{event.description}</p>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                      <div className="flex items-center space-x-2">
-                        <Calendar className="text-primary-600" size={20} />
-                        <span className="text-secondary-700">{event.date}</span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <Clock className="text-primary-600" size={20} />
-                        <span className="text-secondary-700">{event.time}</span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <MapPin className="text-primary-600" size={20} />
-                        <span className="text-secondary-700">{event.location}</span>
-                      </div>
+                    <div className="lg:ml-8 mt-6 lg:mt-0">
+                      <Link
+                        to="/contact"
+                        className="btn-primary w-full lg:w-auto inline-flex items-center justify-center"
+                      >
+                        Register Now
+                      </Link>
                     </div>
-
-                    <div className="flex items-center space-x-4 mb-4">
-                      <div className="flex items-center space-x-2">
-                        <Users className="text-primary-600" size={20} />
-                        <span className="text-secondary-700">Expected: {event.attendees} attendees</span>
-                      </div>
-                    </div>
-
-                    {event.speakers && (
-                      <div className="mb-4">
-                        <h4 className="font-semibold text-secondary-900 mb-2">Featured Speakers:</h4>
-                        <ul className="text-secondary-600">
-                          {event.speakers.map((speaker, index) => (
-                            <li key={index} className="flex items-center space-x-2">
-                              <span className="w-1.5 h-1.5 bg-primary-600 rounded-full"></span>
-                              <span>{speaker}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="lg:ml-8 mt-6 lg:mt-0">
-                    <button className="btn-primary w-full lg:w-auto">
-                      Register Now
-                      <ExternalLink className="inline ml-2" size={16} />
-                    </button>
                   </div>
                 </div>
               </div>

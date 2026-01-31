@@ -1,80 +1,100 @@
+import { useState } from 'react'
 import { Mail, Phone, ExternalLink } from 'lucide-react'
 
 const Team = () => {
-  const teamMembers = [
-    {
-      id: 1,
-      name: 'Md. Arif Hasan',
-      title: 'President',
-      specialty: 'Research Leadership & Organization',
-      department: 'Executive Committee',
-      email: 'arif.hasan@jkkniu.edu.bd',
-      phone: '+880-1712-345678',
-      linkedin: '#',
-      bio: 'President of JKKNIU Research Society, leading the organization and overseeing all research initiatives.',
-      image: '👨‍💼'
-    },
-    {
-      id: 2,
-      name: 'Fatima Akter Mim',
-      title: 'Vice President',
-      specialty: 'Research Administration & Events',
-      department: 'Executive Committee',
-      email: 'fatima.mim@jkkniu.edu.bd',
-      phone: '+880-1712-345679',
-      linkedin: '#',
-      bio: 'Vice President managing research operations and organizing society events and workshops.',
-      image: '👩‍💼'
-    },
-    {
-      id: 3,
-      name: 'Karim Ahmed',
-      title: 'General Secretary',
-      specialty: 'Communication & Documentation',
-      department: 'Executive Committee',
-      email: 'karim.ahmed@jkkniu.edu.bd',
-      phone: '+880-1712-345680',
-      linkedin: '#',
-      bio: 'General Secretary handling all communications, documentation, and official correspondence.',
-      image: '👨‍💻'
-    },
-    {
-      id: 4,
-      name: 'Ayesha Khan',
-      title: 'Treasurer',
-      specialty: 'Financial Management',
-      department: 'Executive Committee',
-      email: 'ayesha.khan@jkkniu.edu.bd',
-      phone: '+880-1712-345681',
-      linkedin: '#',
-      bio: 'Treasurer managing all financial matters and resource allocation for the society.',
-      image: '👩‍💻'
-    },
-    {
-      id: 5,
-      name: 'Md. Tanzim Hasan',
-      title: 'Research Coordinator',
-      specialty: 'Research Project Management',
-      department: 'Executive Committee',
-      email: 'tanzim.hasan@jkkniu.edu.bd',
-      phone: '+880-1712-345682',
-      linkedin: '#',
-      bio: 'Research Coordinator overseeing research projects and ensuring quality standards.',
-      image: '👨‍🔬'
-    },
-    {
-      id: 6,
-      name: 'Nadia Akter',
-      title: 'Events Coordinator',
-      specialty: 'Event Organization & Outreach',
-      department: 'Executive Committee',
-      email: 'nadia.akter@jkkniu.edu.bd',
-      phone: '+880-1712-345683',
-      linkedin: '#',
-      bio: 'Events Coordinator organizing seminars, workshops, and networking events.',
-      image: '👩‍🎓'
-    }
-  ]
+  const [activeCommittee, setActiveCommittee] = useState('5th')
+
+  const committees = {
+    '1st': [
+      {
+        id: 1,
+        name: ' ',
+        title: 'President',
+        specialty: 'Research Leadership',
+        department: 'Executive Committee',
+        email: 'president@jkkniu.edu.bd',
+        phone: '',
+        bio: 'Leading the organization and overseeing all research initiatives.',
+        image: '/media/team/1st_committee/president.png'
+      },
+      {
+        id: 2,
+        name: ' ',
+        title: 'Vice President',
+        specialty: 'Research Administration',
+        department: 'Executive Committee',
+        email: 'vp@jkkniu.edu.bd',
+        phone: '',
+        bio: 'Managing research operations and organizing society events.',
+        image: '/media/team/1st_committee/vp.jpg'
+      },
+      {
+        id: 3,
+        name: ' ',
+        title: 'Communication & External Affairs Executive',
+        specialty: 'Communication',
+        department: 'Executive Committee',
+        email: 'communication@jkkniu.edu.bd',
+        phone: '',
+        bio: 'Handling external communications and public relations.',
+        image: '/media/team/1st_committee/comm_external.png'
+      },
+      {
+        id: 4,
+        name: ' ',
+        title: 'Organizing Secretary',
+        specialty: 'Organization',
+        department: 'Executive Committee',
+        email: 'org.sec@jkkniu.edu.bd',
+        phone: '',
+        bio: 'Responsible for organizing events and maintaining records.',
+        image: '/media/team/1st_committee/org_sec.png'
+      },
+      {
+        id: 5,
+        name: ' ',
+        title: 'HR Executive',
+        specialty: 'Human Resources',
+        department: 'Executive Committee',
+        email: 'hr@jkkniu.edu.bd',
+        phone: '',
+        bio: 'Managing human resources and member relations.',
+        image: '/media/team/1st_committee/hr.png'
+      }
+    ],
+    '2nd': [
+      { id: 1, name: 'SUMON SHEIKH', title: 'President', specialty: 'Leadership', department: 'Executive Committee', email: '', phone: '', bio: 'President of 2nd Executive Committee', image: '/media/team/2nd_committee/sumon_sheikh.jpg' },
+      { id: 2, name: 'MD. ABU ERFAN', title: 'General Secretary', specialty: 'Administration', department: 'Executive Committee', email: '', phone: '', bio: 'General Secretary of 2nd Executive Committee', image: '/media/team/2nd_committee/abu_erfan.jpg' },
+      { id: 3, name: 'NISHAT AZAD CHUA', title: 'Vice President (Internal)', specialty: 'Internal Affairs', department: 'Executive Committee', email: '', phone: '', bio: 'Vice President (Internal)', image: '/media/team/2nd_committee/nishat_azad_chua.jpg' },
+      { id: 4, name: 'MD JUNAYETH BHUIYAN', title: 'Vice President (External)', specialty: 'External Affairs', department: 'Executive Committee', email: '', phone: '', bio: 'Vice President (External)', image: '/media/team/2nd_committee/junayeth_bhuiyan.jpg' },
+      { id: 5, name: 'LIVA HAQUE', title: 'Joint Secretary', specialty: 'Coordination', department: 'Executive Committee', email: '', phone: '', bio: 'Joint Secretary', image: '/media/team/2nd_committee/liva_haque.jpg' },
+      { id: 6, name: 'PRODITY PROMA', title: 'Member', specialty: 'Member', department: 'Executive Committee', email: '', phone: '', bio: 'Executive Committee Member', image: '/media/team/2nd_committee/prodity_proma.jpg' },
+      { id: 7, name: 'ABU SAYEM', title: 'Member', specialty: 'Member', department: 'Executive Committee', email: '', phone: '', bio: 'Executive Committee Member', image: '/media/team/2nd_committee/abu_sayem.jpg' },
+      { id: 8, name: 'MD MAHFUZUR RAHMAN MAHIM', title: 'Member', specialty: 'Member', department: 'Executive Committee', email: '', phone: '', bio: 'Executive Committee Member', image: '/media/team/2nd_committee/md_mahmud_mahim.jpg' },
+      { id: 9, name: 'ALI AHMED', title: 'Member', specialty: 'Member', department: 'Executive Committee', email: '', phone: '', bio: 'Executive Committee Member', image: '/media/team/2nd_committee/ali_ahmed.jpg' },
+      { id: 10, name: 'UTSHA PAUL', title: 'Member', specialty: 'Member', department: 'Executive Committee', email: '', phone: '', bio: 'Executive Committee Member', image: '/media/team/2nd_committee/utsha_paul.jpg' }
+    ],
+    '3rd': [
+      { id: 1, name: 'SUMON SHEIKH', title: 'President', specialty: 'Leadership', department: 'Executive Committee', email: '', phone: '', bio: 'President of 3rd Executive Committee', image: '/media/team/3rd_committee/sumon_sheikh.jpg' },
+      { id: 2, name: 'MD. ABU ERFAN', title: 'General Secretary', specialty: 'Administration', department: 'Executive Committee', email: '', phone: '', bio: 'General Secretary of 3rd Executive Committee', image: '/media/team/3rd_committee/abu_erfan.jpg' },
+      { id: 3, name: 'NISHAT AZAD CHUA', title: 'Vice President (Internal)', specialty: 'Internal Affairs', department: 'Executive Committee', email: '', phone: '', bio: 'Vice President (Internal)', image: '/media/team/3rd_committee/nishat_azad_chua.jpg' },
+      { id: 4, name: 'MD JUNAYETH BHUIYAN', title: 'Vice President (External)', specialty: 'External Affairs', department: 'Executive Committee', email: '', phone: '', bio: 'Vice President (External)', image: '/media/team/3rd_committee/junayeth_bhuiyan.jpg' },
+      { id: 5, name: 'LIVA HAQUE', title: 'Joint Secretary', specialty: 'Coordination', department: 'Executive Committee', email: '', phone: '', bio: 'Joint Secretary', image: '/media/team/3rd_committee/liva_haque.jpg' },
+      { id: 6, name: 'PRODITY PROMA', title: 'Member', specialty: 'Member', department: 'Executive Committee', email: '', phone: '', bio: 'Executive Committee Member', image: '/media/team/3rd_committee/prodity_proma.jpg' },
+      { id: 7, name: 'ABU SAYEM', title: 'Member', specialty: 'Member', department: 'Executive Committee', email: '', phone: '', bio: 'Executive Committee Member', image: '/media/team/3rd_committee/abu_sayem.jpg' },
+      { id: 8, name: 'MD MAHFUZUR RAHMAN MAHIM', title: 'Member', specialty: 'Member', department: 'Executive Committee', email: '', phone: '', bio: 'Executive Committee Member', image: '/media/team/3rd_committee/md_mahmud_mahim.jpg' },
+      { id: 9, name: 'ALI AHMED', title: 'Member', specialty: 'Member', department: 'Executive Committee', email: '', phone: '', bio: 'Executive Committee Member', image: '/media/team/3rd_committee/ali_ahmed.jpg' },
+      { id: 10, name: 'UTSHA PAUL', title: 'Member', specialty: 'Member', department: 'Executive Committee', email: '', phone: '', bio: 'Executive Committee Member', image: '/media/team/3rd_committee/utsha_paul.jpg' }
+    ],
+    '4th': [
+      { id: 1, name: 'TBD', title: 'President', image: '👨‍💼', bio: '4th Committee President', email: '', phone: '' },
+      { id: 2, name: 'TBD', title: 'General Secretary', image: '👨‍💻', bio: '4th Committee GS', email: '', phone: '' }
+    ],
+    '5th': [
+      { id: 1, name: 'MD. SOJIB', title: 'President', image: '👨‍💼', bio: 'Current President', email: '', phone: '' },
+      { id: 2, name: 'TBD', title: 'General Secretary', image: '👨‍💻', bio: 'Current GS', email: '', phone: '' }
+    ]
+  }
 
   const departments = [
     {
@@ -104,6 +124,8 @@ const Team = () => {
     }
   ]
 
+  const committeeKeys = ['5th', '4th', '3rd', '2nd', '1st']
+
   return (
     <div>
       {/* Hero Section */}
@@ -120,37 +142,69 @@ const Team = () => {
         </div>
       </section>
 
-      {/* Leadership */}
+      {/* Leadership / Executive Committee */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-12">
+          <div className="mb-12 text-center">
             <h2 className="text-3xl font-bold text-secondary-900 mb-4">Executive Committee</h2>
-            <p className="text-lg text-secondary-600">
-              Student leaders and officers managing the research society
+            <p className="text-lg text-secondary-600 mb-8">
+              Leading the way year after year
             </p>
+
+            {/* Committee Navigation */}
+            <div className="flex flex-wrap justify-center gap-4 mb-8">
+              {committeeKeys.map((key) => (
+                <button
+                  key={key}
+                  onClick={() => setActiveCommittee(key)}
+                  className={`px-6 py-2 rounded-full text-sm font-semibold transition-colors ${activeCommittee === key
+                    ? 'bg-primary-600 text-white shadow-md'
+                    : 'bg-secondary-100 text-secondary-600 hover:bg-secondary-200'
+                    }`}
+                >
+                  {key} Committee
+                </button>
+              ))}
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {teamMembers.map((member) => (
+            {committees[activeCommittee as keyof typeof committees].map((member) => (
               <div key={member.id} className="bg-white border border-secondary-200 rounded-lg p-6 hover:shadow-lg transition-shadow">
-                <div className="flex items-start space-x-4 mb-4">
-                  <div className="text-5xl">{member.image}</div>
-                  <div className="flex-1">
-                    <h3 className="text-xl font-bold text-secondary-900">{member.name}</h3>
-                    <p className="text-primary-600 font-semibold">{member.title}</p>
-                    <p className="text-secondary-600 text-sm">{member.specialty}</p>
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-32 h-32 mb-4 rounded-full overflow-hidden border-4 border-primary-100">
+                    {member.image.startsWith('/') ? (
+                      <img
+                        src={member.image}
+                        alt={member.title}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center bg-secondary-50 text-4xl">
+                        {member.image}
+                      </div>
+                    )}
                   </div>
-                </div>
-                <p className="text-secondary-600 text-sm mb-4">{member.bio}</p>
-                <div className="flex items-center space-x-3 text-sm">
-                  <a href={`mailto:${member.email}`} className="flex items-center text-primary-600 hover:text-primary-700">
-                    <Mail size={16} className="mr-1" />
-                    Email
-                  </a>
-                  <a href={`tel:${member.phone}`} className="flex items-center text-primary-600 hover:text-primary-700">
-                    <Phone size={16} className="mr-1" />
-                    Call
-                  </a>
+                  <h3 className="text-xl font-bold text-secondary-900">{member.name}</h3>
+                  <p className="text-primary-600 font-semibold mb-2">{member.title}</p>
+                  <p className="text-secondary-600 text-sm mb-4">{member.bio}</p>
+
+                  {(member.email || member.phone) && (
+                    <div className="flex items-center space-x-3 text-sm mt-2">
+                      {member.email && (
+                        <a href={`mailto:${member.email}`} className="flex items-center text-primary-600 hover:text-primary-700">
+                          <Mail size={16} className="mr-1" />
+                          Email
+                        </a>
+                      )}
+                      {member.phone && (
+                        <a href={`tel:${member.phone}`} className="flex items-center text-primary-600 hover:text-primary-700">
+                          <Phone size={16} className="mr-1" />
+                          Call
+                        </a>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
@@ -159,7 +213,7 @@ const Team = () => {
       </section>
 
       {/* Research Departments */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-secondary-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-12">
             <h2 className="text-3xl font-bold text-secondary-900 mb-4">Research Departments</h2>
