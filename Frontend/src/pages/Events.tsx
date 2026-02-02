@@ -170,71 +170,69 @@ const Events = () => {
           <div className="space-y-8">
             {upcomingEvents.map((event) => (
               <div key={event.id} className="rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
-                {/* Event Banner */}
-                <div
-                  className="hidden md:flex relative w-full h-64 md:h-80 items-center justify-center overflow-hidden bg-cover bg-center md:bg-[url('/media/banner.png')]"
-                >
-                  <div className="absolute inset-0 bg-black/0"></div>
-                  {/* Title removed as it is in the background image */}
+                {/* Event Banner - visible on all devices */}
+                <div className="w-full">
+                  <img
+                    src="/media/banner.png"
+                    alt="Young Researcher Recruitment 6.0"
+                    className="w-full h-auto object-contain"
+                  />
                 </div>
 
                 {/* Event Details */}
-                <div className="bg-white border border-secondary-200 p-8">
-                  <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-6">
-                    <div className="flex-1">
-                      <div className="flex items-center space-x-3 mb-3">
-                        <span className={`px-3 py-1 rounded-full text-sm font-medium ${getEventTypeColor(event.type)}`}>
-                          {event.type}
-                        </span>
-                        <span className="text-secondary-500 text-sm">Registration deadline: {event.registrationDeadline}</span>
-                      </div>
-                      <p className="text-secondary-600 mb-4">{event.description}</p>
+                <div className="bg-white border border-secondary-200 p-6 md:p-8">
+                  <div className="flex items-center space-x-3 mb-3">
+                    <span className={`px-3 py-1 rounded-full text-sm font-medium ${getEventTypeColor(event.type)}`}>
+                      {event.type}
+                    </span>
+                    <span className="text-secondary-500 text-sm">Registration deadline: {event.registrationDeadline}</span>
+                  </div>
+                  <p className="text-secondary-600 mb-4">{event.description}</p>
 
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                        <div className="flex items-center space-x-2">
-                          <Calendar className="text-primary-600" size={20} />
-                          <span className="text-secondary-700">{event.date}</span>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Clock className="text-primary-600" size={20} />
-                          <span className="text-secondary-700">{event.time}</span>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <MapPin className="text-primary-600" size={20} />
-                          <span className="text-secondary-700">{event.location}</span>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center space-x-4 mb-4">
-                        <div className="flex items-center space-x-2">
-                          <Users className="text-primary-600" size={20} />
-                          <span className="text-secondary-700">Expected: {event.attendees} attendees</span>
-                        </div>
-                      </div>
-
-                      {event.speakers && (
-                        <div className="mb-4">
-                          <h4 className="font-semibold text-secondary-900 mb-2">Featured Speakers:</h4>
-                          <ul className="text-secondary-600">
-                            {event.speakers.map((speaker, index) => (
-                              <li key={index} className="flex items-center space-x-2">
-                                <span className="w-1.5 h-1.5 bg-primary-600 rounded-full"></span>
-                                <span>{speaker}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                    <div className="flex items-center space-x-2">
+                      <Calendar className="text-primary-600" size={20} />
+                      <span className="text-secondary-700">{event.date}</span>
                     </div>
-
-                    <div className="lg:ml-8 mt-6 lg:mt-0">
-                      <Link
-                        to="/contact"
-                        className="btn-primary w-full lg:w-auto inline-flex items-center justify-center"
-                      >
-                        Register Now
-                      </Link>
+                    <div className="flex items-center space-x-2">
+                      <Clock className="text-primary-600" size={20} />
+                      <span className="text-secondary-700">{event.time}</span>
                     </div>
+                    <div className="flex items-center space-x-2">
+                      <MapPin className="text-primary-600" size={20} />
+                      <span className="text-secondary-700">{event.location}</span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center space-x-4 mb-4">
+                    <div className="flex items-center space-x-2">
+                      <Users className="text-primary-600" size={20} />
+                      <span className="text-secondary-700">Expected: {event.attendees} attendees</span>
+                    </div>
+                  </div>
+
+                  {event.speakers && (
+                    <div className="mb-6">
+                      <h4 className="font-semibold text-secondary-900 mb-2">Featured Speakers:</h4>
+                      <ul className="text-secondary-600">
+                        {event.speakers.map((speaker, index) => (
+                          <li key={index} className="flex items-center space-x-2">
+                            <span className="w-1.5 h-1.5 bg-primary-600 rounded-full"></span>
+                            <span>{speaker}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {/* Apply Button - bottom right */}
+                  <div className="flex justify-end mt-4 pt-4 border-t border-secondary-100">
+                    <Link
+                      to="/recruitment"
+                      className="btn-primary inline-flex items-center justify-center px-8 py-3"
+                    >
+                      Apply Now
+                    </Link>
                   </div>
                 </div>
               </div>
