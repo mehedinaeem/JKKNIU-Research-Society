@@ -55,7 +55,6 @@ const Navbar = () => {
     { name: 'News', href: '/news' },
     { name: 'Advisory Board', href: '/advisory-board' },
     { name: 'Our Team', href: '/team' },
-    { name: 'Recruitment', href: '/recruitment' },
     // { name: 'Membership', href: '/membership' },
     // { name: 'Contact', href: '/contact' },
   ]
