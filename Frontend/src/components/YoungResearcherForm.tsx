@@ -776,7 +776,7 @@ const YoungResearcherForm = () => {
                                     ) : (
                                         <>
                                             <Send size={20} />
-                                            Submit Application
+                                            Submit
                                         </>
                                     )}
                                 </button>
