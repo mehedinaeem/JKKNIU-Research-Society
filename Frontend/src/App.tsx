@@ -12,6 +12,7 @@ import Team from './pages/Team'
 import Membership from './pages/Membership'
 import Contact from './pages/Contact'
 import Login from './pages/Login'
+import Recruitment from './pages/Recruitment'
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/membership" element={<Membership />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/recruitment" element={<Recruitment />} />
         </Routes>
       </main>
       <Footer />
