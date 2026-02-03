@@ -1,8 +1,21 @@
 import { Link } from 'react-router-dom'
 import { Calendar, Clock, MapPin, Users } from 'lucide-react'
 
+interface Event {
+  id: number
+  title: string
+  date: string
+  location: string
+  description: string
+  type: string
+  attendees: number
+  registrationDeadline?: string
+  time?: string
+  speakers?: string[]
+}
+
 const Events = () => {
-  const upcomingEvents = [
+  const upcomingEvents: Event[] = [
     {
       id: 1,
       title: 'Young Researcher Recruitment 6.0',
@@ -15,7 +28,7 @@ const Events = () => {
     }
   ]
 
-  const pastEvents = [
+  const pastEvents: Event[] = [
     {
       id: 2,
       title: 'Basic Research Training in Writing & Structuring Research Reports',
