@@ -13,13 +13,13 @@ const Footer = () => {
               Advancing research excellence and fostering innovation at Jatiya Kabi Kazi Nazrul Islam University.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-secondary-300 hover:text-white transition-colors">
+              <a href="https://www.facebook.com/JKKNIURS" target="_blank" rel="noopener noreferrer" className="text-secondary-300 hover:text-white transition-colors">
                 <Facebook size={20} />
               </a>
               <a href="#" className="text-secondary-300 hover:text-white transition-colors">
                 <Twitter size={20} />
               </a>
-              <a href="#" className="text-secondary-300 hover:text-white transition-colors">
+              <a href="https://www.linkedin.com/company/jkkniu-research-society/" target="_blank" rel="noopener noreferrer" className="text-secondary-300 hover:text-white transition-colors">
                 <Linkedin size={20} />
               </a>
               <a href="#" className="text-secondary-300 hover:text-white transition-colors">
@@ -106,14 +106,14 @@ const Footer = () => {
               </div>
               <div className="flex items-center space-x-3">
                 <Mail size={20} className="text-secondary-300 flex-shrink-0" />
-                <a href="mailto:research@jkkniu.edu.bd" className="text-secondary-300 hover:text-white transition-colors">
-                  research@jkkniu.edu.bd
+                <a href="mailto:jkkniurs7@gmail.com" className="text-secondary-300 hover:text-white transition-colors">
+                  jkkniurs7@gmail.com
                 </a>
               </div>
               <div className="flex items-center space-x-3">
                 <Phone size={20} className="text-secondary-300 flex-shrink-0" />
-                <a href="tel:+8801712345678" className="text-secondary-300 hover:text-white transition-colors">
-                  +880 1712 345678
+                <a href="tel:+88019" className="text-secondary-300 hover:text-white transition-colors">
+                  +88019...
                 </a>
               </div>
             </div>

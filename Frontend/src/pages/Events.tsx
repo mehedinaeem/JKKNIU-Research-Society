@@ -120,7 +120,7 @@ const Events = () => {
     {
       id: 13,
       title: 'JKKNIU Research Society প্রতিষ্ঠা',
-      date: '2019',
+      date: '2017',
       location: 'JKKNIU',
       description: 'Founding of JKKNIU Research Society and official recognition in Kaler Kantho.',
       type: 'Milestone',
