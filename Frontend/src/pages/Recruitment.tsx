@@ -1,6 +1,11 @@
+import { useEffect } from 'react'
 import YoungResearcherForm from '../components/YoungResearcherForm'
 
 const Recruitment = () => {
+    useEffect(() => {
+        window.scrollTo(0,0)
+    }, [])
+
     return (
         <div className="min-h-screen bg-gradient-to-br from-secondary-50 via-white to-primary-50">
             {/* Decorative Background Elements */}

@@ -6,14 +6,12 @@ const Events = () => {
     {
       id: 1,
       title: 'Young Researcher Recruitment 6.0',
-      date: 'February 15, 2025',
-      time: '10:00 AM - 5:00 PM',
-      location: 'JKKNIU Main Campus',
+      date: 'February 15, 2026',
+      location: 'On Campus',
       description: 'Join the Young Researcher Recruitment 6.0 program! This is an exciting opportunity for undergraduate and graduate students to showcase their research skills, collaborate with experienced researchers, and contribute to groundbreaking research projects at JKKNIU Research Society.',
       type: 'Recruitment',
       attendees: 250,
-      registrationDeadline: 'February 10, 2025',
-      speakers: ['JKKNIU Research Society Leadership', 'Senior Researchers and Mentors']
+      registrationDeadline: 'February 15, 2026',
     }
   ]
 
@@ -187,17 +185,19 @@ const Events = () => {
                     </span>
                     <span className="text-secondary-500 text-sm">Registration deadline: {event.registrationDeadline}</span>
                   </div>
-                  <p className="text-secondary-600 mb-4">{event.description}</p>
+                  <p className="text-secondary-600 mb-4 text-justify">{event.description}</p>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                     <div className="flex items-center space-x-2">
                       <Calendar className="text-primary-600" size={20} />
                       <span className="text-secondary-700">{event.date}</span>
                     </div>
-                    <div className="flex items-center space-x-2">
-                      <Clock className="text-primary-600" size={20} />
-                      <span className="text-secondary-700">{event.time}</span>
-                    </div>
+                    {event.time && (
+                      <div className="flex items-center space-x-2">
+                        <Clock className="text-primary-600" size={20} />
+                        <span className="text-secondary-700">{event.time}</span>
+                      </div>
+                    )}
                     <div className="flex items-center space-x-2">
                       <MapPin className="text-primary-600" size={20} />
                       <span className="text-secondary-700">{event.location}</span>

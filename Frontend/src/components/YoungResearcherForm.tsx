@@ -339,7 +339,7 @@ const YoungResearcherForm = () => {
                                     The Research Society of Jatiya Kabi Kazi Nazrul Islam University (JKKNIU) is inviting passionate and motivated students to join our <strong className="text-primary-700">Young Researcher Recruitment Program</strong>.
                                 </p>
                                 <p className="text-secondary-600 leading-relaxed mb-4">
-                                    We welcome applicants from all disciplines who have a strong interest in research, critical thinking, data analysis, writing, and academic collaboration. Prior research experience is not mandatory—<strong className="text-primary-700">enthusiasm, commitment, and a willingness to learn</strong> are highly valued.
+                                    We welcome applicants from all disciplines who have a strong interest in research, critical thinking, data analysis, writing, and academic collaboration. Prior research experience is not mandatory - <strong className="text-primary-700">enthusiasm, commitment, and a willingness to learn</strong> are highly valued.
                                 </p>
                                 <p className="text-secondary-600 leading-relaxed mb-4">
                                     If you aspire to grow as a researcher and contribute to a vibrant research culture at JKKNIU, we encourage you to apply.
