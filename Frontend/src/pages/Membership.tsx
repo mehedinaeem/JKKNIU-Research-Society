@@ -1,4 +1,5 @@
 import { CheckCircle, Clock, Users, FileText } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 const Membership = () => {
   const benefits = [
@@ -156,14 +157,15 @@ const Membership = () => {
                     </ul>
                   </div>
 
-                  <button
-                    className={`w-full font-semibold py-3 px-4 rounded transition-colors duration-200 ${membership.highlighted
+                  <Link
+                    to="/recruitment"
+                    className={`block w-full text-center font-semibold py-3 px-4 rounded transition-colors duration-200 ${membership.highlighted
                       ? 'bg-primary-600 text-white hover:bg-primary-700'
                       : 'bg-primary-100 text-primary-600 hover:bg-primary-200'
                       }`}
                   >
                     {membership.cta}
-                  </button>
+                  </Link>
                 </div>
               </div>
             ))}
