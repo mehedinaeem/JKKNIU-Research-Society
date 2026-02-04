@@ -256,7 +256,7 @@ const Membership = () => {
               Start Application
             </button>
             <a
-              href="mailto:membership@jkkniu.edu.bd"
+              href="mailto:jkkniurs7@gmail.com"
               className="border-2 border-white text-white hover:bg-white hover:text-primary-600 font-semibold py-3 px-8 rounded-lg transition-colors duration-200"
             >
               Contact Us
