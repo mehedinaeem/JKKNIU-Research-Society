@@ -27,7 +27,7 @@ const Membership = () => {
   const membershipTypes = [
     {
       name: 'Student Membership',
-      price: 'Free',
+      price: '100 BDT',
       duration: '1 year (renewable)',
       requirements: ['Currently enrolled student at JKKNIU', 'Complete membership form', 'Valid university ID'],
       benefits: [
@@ -37,52 +37,8 @@ const Membership = () => {
         'Networking opportunities',
         'Monthly newsletter'
       ],
-      cta: 'Apply Now'
-    },
-    {
-      name: 'Faculty Membership',
-      price: 'BDT 5,000/year',
-      duration: '1 year (renewable)',
-      requirements: ['Faculty member at any institution', 'Research background', 'Complete membership form'],
-      benefits: [
-        'Full access to resources',
-        'Publish in society journal',
-        'Lead research projects',
-        'International collaboration',
-        'Mentorship opportunities',
-        'Discounted event fees'
-      ],
-      cta: 'Become a Member',
+      cta: 'Apply Now',
       highlighted: true
-    },
-    {
-      name: 'Associate Membership',
-      price: 'BDT 2,000/year',
-      duration: '1 year (renewable)',
-      requirements: ['Professional with research interest', 'Relevant background', 'Application approval'],
-      benefits: [
-        'Access to publications',
-        'Event participation',
-        'Networking opportunities',
-        'Monthly updates',
-        'Certificate of membership'
-      ],
-      cta: 'Apply Now'
-    },
-    {
-      name: 'Institutional Membership',
-      price: 'BDT 50,000/year',
-      duration: '1 year (renewable)',
-      requirements: ['University or research institution', 'Institutional commitment', 'Partnership agreement'],
-      benefits: [
-        'Institutional representation',
-        'Multiple member accounts',
-        'Priority collaboration opportunities',
-        'Co-host events',
-        'Joint publications',
-        'Dedicated liaison officer'
-      ],
-      cta: 'Contact for Details'
     }
   ]
 
@@ -160,15 +116,14 @@ const Membership = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="flex justify-center gap-6">
             {membershipTypes.map((membership, index) => (
               <div
                 key={index}
-                className={`rounded-lg overflow-hidden ${
-                  membership.highlighted
-                    ? 'border-4 border-primary-600 shadow-xl transform lg:scale-105'
-                    : 'border border-secondary-200 shadow-md'
-                } bg-white`}
+                className={`rounded-lg overflow-hidden ${membership.highlighted
+                  ? 'border-4 border-primary-600 shadow-xl transform lg:scale-105'
+                  : 'border border-secondary-200 shadow-md'
+                  } bg-white`}
               >
                 <div className={`p-6 ${membership.highlighted ? 'bg-primary-600 text-white' : 'bg-secondary-50'}`}>
                   <h3 className="text-2xl font-bold mb-2">{membership.name}</h3>
@@ -202,11 +157,10 @@ const Membership = () => {
                   </div>
 
                   <button
-                    className={`w-full font-semibold py-3 px-4 rounded transition-colors duration-200 ${
-                      membership.highlighted
-                        ? 'bg-primary-600 text-white hover:bg-primary-700'
-                        : 'bg-primary-100 text-primary-600 hover:bg-primary-200'
-                    }`}
+                    className={`w-full font-semibold py-3 px-4 rounded transition-colors duration-200 ${membership.highlighted
+                      ? 'bg-primary-600 text-white hover:bg-primary-700'
+                      : 'bg-primary-100 text-primary-600 hover:bg-primary-200'
+                      }`}
                   >
                     {membership.cta}
                   </button>

@@ -6,17 +6,20 @@ const Login = () => {
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsLoading(true)
+    setError('')
+
     // Simulate login process
     setTimeout(() => {
       setIsLoading(false)
-      alert('Login functionality would be implemented with backend integration.')
-      setEmail('')
+      setError('Account not found. Please create an account first.')
+      // Clear password but keep email so they can fix it if needed
       setPassword('')
-    }, 1500)
+    }, 1000)
   }
 
   return (
@@ -33,6 +36,12 @@ const Login = () => {
             Sign in to your JKKNIU Research Society account
           </p>
         </div>
+
+        {error && (
+          <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded-lg text-sm flex items-center justify-center">
+            {error}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
@@ -114,12 +123,6 @@ const Login = () => {
             <a href="/membership" className="text-primary-600 hover:text-primary-700 font-semibold">
               Create one
             </a>
-          </p>
-        </div>
-
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-          <p className="text-sm text-blue-800">
-            <strong>Demo Notice:</strong> This is a frontend prototype. Backend authentication will be implemented later.
           </p>
         </div>
       </div>
