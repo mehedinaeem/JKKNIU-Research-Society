@@ -1,6 +1,9 @@
-import { Bell } from 'lucide-react'
+// Imports commented out - Coming Soon
+// import { Bell } from 'lucide-react'
 
 const News = () => {
+  // News data commented out - Coming Soon
+  /*
   const news = [
     {
       id: 1,
@@ -108,6 +111,7 @@ const News = () => {
 
   const featuredNews = news.filter(n => n.featured)
   const otherNews = news.filter(n => !n.featured)
+  */
 
   return (
     <div>
@@ -126,119 +130,21 @@ const News = () => {
         </div>
       </section>
 
-      {/* Featured News */}
-      <section className="py-16 bg-white">
+      {/* Coming Soon Section */}
+      <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-12">
-            <h2 className="text-3xl font-bold text-secondary-900 mb-2">Featured Stories</h2>
-            <p className="text-lg text-secondary-600">
-              Latest highlights and major announcements
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {featuredNews.map((item, index) => (
-              <div
-                key={item.id}
-                className={`${
-                  index === 0 ? 'lg:col-span-2' : ''
-                } bg-gradient-to-br from-primary-50 to-secondary-50 rounded-lg p-8 border border-secondary-200 hover:shadow-lg transition-shadow`}
-              >
-                <div className="flex items-start space-x-4">
-                  <div className="text-4xl">{item.image}</div>
-                  <div className="flex-1">
-                    <div className="flex items-center space-x-2 mb-3">
-                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${getCategoryColor(item.category)}`}>
-                        {item.category}
-                      </span>
-                      <span className="text-secondary-500 text-sm">{item.date}</span>
-                    </div>
-                    <h3 className="text-2xl font-bold text-secondary-900 mb-3">{item.title}</h3>
-                    <p className="text-secondary-600 mb-4">{item.content}</p>
-                    <div className="flex flex-wrap gap-2">
-                      {item.tags.map((tag, idx) => (
-                        <span key={idx} className="bg-white text-secondary-600 px-2 py-1 rounded text-xs border border-secondary-200">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    <a href="#" className="inline-flex items-center text-primary-600 hover:text-primary-700 font-medium mt-4">
-                      Read More →
-                    </a>
-                  </div>
-                </div>
+          <div className="text-center">
+            <div className="flex flex-col items-center justify-center py-16">
+              <div className="w-28 h-28 mb-8 rounded-full bg-gradient-to-br from-primary-100 to-primary-200 flex items-center justify-center">
+                <span className="text-6xl">📰</span>
               </div>
-            ))}
+              <h2 className="text-3xl font-bold text-secondary-800 mb-4">Coming Soon</h2>
+              <p className="text-secondary-600 max-w-lg text-lg">
+                We're working on bringing you the latest news and announcements.
+                Stay tuned for updates from JKKNIU Research Society!
+              </p>
+            </div>
           </div>
-        </div>
-      </section>
-
-      {/* All News */}
-      <section className="py-16 bg-secondary-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-12">
-            <h2 className="text-3xl font-bold text-secondary-900 mb-2">All News</h2>
-            <p className="text-lg text-secondary-600">
-              Browse all announcements and news updates
-            </p>
-          </div>
-
-          <div className="space-y-6">
-            {otherNews.map((item) => (
-              <div key={item.id} className="bg-white rounded-lg p-6 hover:shadow-md transition-shadow border border-secondary-100">
-                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-                  <div className="flex items-start space-x-4 flex-1">
-                    <div className="text-3xl flex-shrink-0">{item.image}</div>
-                    <div className="flex-1">
-                      <div className="flex items-center space-x-2 mb-2">
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${getCategoryColor(item.category)}`}>
-                          {item.category}
-                        </span>
-                        <span className="text-secondary-500 text-sm">{item.date}</span>
-                      </div>
-                      <h3 className="text-xl font-bold text-secondary-900 mb-2">{item.title}</h3>
-                      <p className="text-secondary-600 text-sm mb-3">{item.excerpt}</p>
-                      <div className="flex flex-wrap gap-1">
-                        {item.tags.map((tag, idx) => (
-                          <span key={idx} className="bg-secondary-100 text-secondary-600 px-2 py-0.5 rounded text-xs">
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                  <a href="#" className="text-primary-600 hover:text-primary-700 font-medium whitespace-nowrap text-sm">
-                    Read →
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Subscription */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <Bell className="text-primary-600 mx-auto mb-4" size={40} />
-          <h2 className="text-3xl font-bold text-secondary-900 mb-4">Don't Miss Updates</h2>
-          <p className="text-lg text-secondary-600 mb-8 max-w-2xl mx-auto">
-            Subscribe to our newsletter to receive the latest news, announcements, and opportunities
-            directly in your inbox.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 px-4 py-3 border border-secondary-300 rounded-lg focus:outline-none focus:border-primary-600"
-            />
-            <button className="btn-primary whitespace-nowrap">
-              Subscribe
-            </button>
-          </div>
-          <p className="text-secondary-500 text-sm mt-4">
-            We respect your privacy. Unsubscribe at any time.
-          </p>
         </div>
       </section>
     </div>

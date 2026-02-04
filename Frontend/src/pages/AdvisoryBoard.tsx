@@ -1,6 +1,8 @@
-import { Award, BadgeCheck } from 'lucide-react'
+import { BadgeCheck } from 'lucide-react'
 
 const AdvisoryBoard = () => {
+  // Board member data commented out - Coming Soon
+  /*
   const boardMembers = [
     {
       id: 1,
@@ -57,6 +59,7 @@ const AdvisoryBoard = () => {
       image: '👨‍💼'
     }
   ]
+  */
 
   return (
     <div>
@@ -75,45 +78,25 @@ const AdvisoryBoard = () => {
         </div>
       </section>
 
-      {/* Board Members */}
+      {/* Board Members - Coming Soon */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-12">
+          <div className="text-center">
             <h2 className="text-3xl font-bold text-secondary-900 mb-4">Board Members</h2>
-            <p className="text-lg text-secondary-600">
+            <p className="text-lg text-secondary-600 mb-12">
               Meet the distinguished leaders guiding our research excellence
             </p>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {boardMembers.map((member) => (
-              <div key={member.id} className="bg-white border border-secondary-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
-                <div className="bg-gradient-to-r from-primary-50 to-secondary-50 p-6 text-center">
-                  <div className="text-5xl mb-3">{member.image}</div>
-                  <h3 className="text-2xl font-bold text-secondary-900 mb-1">{member.name}</h3>
-                  <p className="text-primary-600 font-semibold mb-1">{member.title}</p>
-                  <p className="text-secondary-600 text-sm">{member.affiliation}</p>
-                </div>
-
-                <div className="p-6">
-                  <p className="text-secondary-600 mb-4">{member.bio}</p>
-
-                  <div>
-                    <h4 className="font-semibold text-secondary-900 mb-2 flex items-center">
-                      <Award size={16} className="mr-2 text-primary-600" />
-                      Expertise
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
-                      {member.expertise.map((exp, idx) => (
-                        <span key={idx} className="bg-primary-100 text-primary-800 px-2 py-1 rounded text-xs font-medium">
-                          {exp}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+            {/* Coming Soon Message */}
+            <div className="flex flex-col items-center justify-center py-20">
+              <div className="w-24 h-24 mb-6 rounded-full bg-gradient-to-br from-primary-100 to-primary-200 flex items-center justify-center">
+                <span className="text-5xl">👨‍🎓</span>
               </div>
-            ))}
+              <h3 className="text-2xl font-bold text-secondary-800 mb-3">Coming Soon</h3>
+              <p className="text-secondary-600 max-w-md">
+                We're working on introducing our distinguished advisory board members. Stay tuned for updates!
+              </p>
+            </div>
           </div>
         </div>
       </section>

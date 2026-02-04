@@ -58,7 +58,7 @@ const About = () => {
             About JKKNIU Research Society
           </h1>
           <p className="text-lg md:text-2xl text-white/90 max-w-3xl mx-auto text-center drop-shadow-md">
-            Established in 2018, we are a vibrant community of researchers, scholars, and students
+            Established in 2017, we are a vibrant community of researchers, scholars, and students
             dedicated to advancing knowledge through collaborative research and academic excellence.
           </p>
         </div>
@@ -149,7 +149,7 @@ const About = () => {
             <div className="space-y-8">
               <div className="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-8">
                 <div className="flex-shrink-0 w-24 h-24 bg-primary-600 text-white rounded-full flex items-center justify-center text-2xl font-bold">
-                  2018
+                  2017
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold text-secondary-900 mb-2">Foundation</h3>

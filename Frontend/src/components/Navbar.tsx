@@ -112,8 +112,13 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`flex justify-between transition-all duration-300 ${isScrolled || isOnSubPage ? 'h-16' : 'h-20'}`}>
           <div className="flex items-center">
-            <Link to="/" className="flex-shrink-0">
-              <span className={`text-2xl font-bold transition-colors duration-300 ${getTextColor()} ${!isScrolled && !isOnSubPage ? 'drop-shadow-lg' : ''}`}>
+            <Link to="/" className="flex-shrink-0 flex items-center gap-2">
+              <img
+                src="/media/jkkniurs-logo.png"
+                alt="JKKNIURS Logo"
+                className={`transition-all duration-300 ${isScrolled || isOnSubPage ? 'h-10' : 'h-12'}`}
+              />
+              <span className={`text-xl font-bold transition-colors duration-300 ${getTextColor()} ${!isScrolled && !isOnSubPage ? 'drop-shadow-lg' : ''}`}>
                 JKKNIURS
               </span>
             </Link>

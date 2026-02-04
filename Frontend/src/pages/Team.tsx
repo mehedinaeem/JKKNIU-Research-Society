@@ -1,9 +1,8 @@
-import { useState } from 'react'
-import { Mail, Phone, ExternalLink } from 'lucide-react'
+import { ExternalLink } from 'lucide-react'
 
 const Team = () => {
-  const [activeCommittee, setActiveCommittee] = useState('5th')
-
+  // Member data commented out - Coming Soon
+  /*
   const committees = {
     '1st': [
       {
@@ -95,36 +94,53 @@ const Team = () => {
       { id: 2, name: 'TBD', title: 'General Secretary', image: '👨‍💻', bio: 'Current GS', email: '', phone: '' }
     ]
   }
+  */
 
   const departments = [
     {
       name: 'Computer Science',
-      members: ['Dr. Mohammad Rahman', 'Prof. Fatima Ahmed'],
+      // members: ['Dr. Mohammad Rahman', 'Prof. Fatima Ahmed'],
       focusAreas: ['AI & ML', 'Data Science', 'Software Engineering']
     },
     {
       name: 'Environmental Studies',
-      members: ['Dr. Karim Hossain'],
+      // members: ['Dr. Karim Hossain'],
       focusAreas: ['Climate Research', 'Biodiversity', 'Sustainability']
     },
     {
       name: 'Life Sciences',
-      members: ['Dr. Ayesha Islam'],
+      // members: ['Dr. Ayesha Islam'],
       focusAreas: ['Biotechnology', 'Genetics', 'Bioinformatics']
     },
     {
       name: 'Social Sciences',
-      members: ['Prof. Nadia Chowdhury'],
+      // members: ['Prof. Nadia Chowdhury'],
       focusAreas: ['Education', 'Sociology', 'Cultural Studies']
     },
     {
       name: 'Engineering',
-      members: ['Dr. Tanvir Ahmed'],
+      // members: ['Dr. Tanvir Ahmed'],
       focusAreas: ['Renewable Energy', 'IoT', 'Manufacturing']
+    },
+    {
+      name: 'Bangla',
+      focusAreas: ['Literature', 'Linguistics', 'Cultural Heritage']
+    },
+    {
+      name: 'Statistics',
+      focusAreas: ['Data Analysis', 'Research Methodology', 'Applied Statistics']
+    },
+    {
+      name: 'Business Studies',
+      focusAreas: ['Management', 'Marketing', 'Entrepreneurship']
+    },
+    {
+      name: 'Arts & Culture',
+      focusAreas: ['Visual Arts', 'Performing Arts', 'Cultural Studies']
     }
   ]
 
-  const committeeKeys = ['5th', '4th', '3rd', '2nd', '1st']
+  // const committeeKeys = ['5th', '4th', '3rd', '2nd', '1st']
 
   return (
     <div>
@@ -145,69 +161,22 @@ const Team = () => {
       {/* Leadership / Executive Committee */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-12 text-center">
+          <div className="text-center">
             <h2 className="text-3xl font-bold text-secondary-900 mb-4">Executive Committee</h2>
-            <p className="text-lg text-secondary-600 mb-8">
+            <p className="text-lg text-secondary-600 mb-12">
               Leading the way year after year
             </p>
 
-            {/* Committee Navigation */}
-            <div className="flex flex-wrap justify-center gap-4 mb-8">
-              {committeeKeys.map((key) => (
-                <button
-                  key={key}
-                  onClick={() => setActiveCommittee(key)}
-                  className={`px-6 py-2 rounded-full text-sm font-semibold transition-colors ${activeCommittee === key
-                    ? 'bg-primary-600 text-white shadow-md'
-                    : 'bg-secondary-100 text-secondary-600 hover:bg-secondary-200'
-                    }`}
-                >
-                  {key} Committee
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {committees[activeCommittee as keyof typeof committees].map((member) => (
-              <div key={member.id} className="bg-white border border-secondary-200 rounded-lg p-6 hover:shadow-lg transition-shadow">
-                <div className="flex flex-col items-center text-center">
-                  <div className="w-32 h-32 mb-4 rounded-full overflow-hidden border-4 border-primary-100">
-                    {member.image.startsWith('/') ? (
-                      <img
-                        src={member.image}
-                        alt={member.title}
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center bg-secondary-50 text-4xl">
-                        {member.image}
-                      </div>
-                    )}
-                  </div>
-                  <h3 className="text-xl font-bold text-secondary-900">{member.name}</h3>
-                  <p className="text-primary-600 font-semibold mb-2">{member.title}</p>
-                  <p className="text-secondary-600 text-sm mb-4">{member.bio}</p>
-
-                  {(member.email || member.phone) && (
-                    <div className="flex items-center space-x-3 text-sm mt-2">
-                      {member.email && (
-                        <a href={`mailto:${member.email}`} className="flex items-center text-primary-600 hover:text-primary-700">
-                          <Mail size={16} className="mr-1" />
-                          Email
-                        </a>
-                      )}
-                      {member.phone && (
-                        <a href={`tel:${member.phone}`} className="flex items-center text-primary-600 hover:text-primary-700">
-                          <Phone size={16} className="mr-1" />
-                          Call
-                        </a>
-                      )}
-                    </div>
-                  )}
-                </div>
+            {/* Coming Soon Message */}
+            <div className="flex flex-col items-center justify-center py-20">
+              <div className="w-24 h-24 mb-6 rounded-full bg-gradient-to-br from-primary-100 to-primary-200 flex items-center justify-center">
+                <span className="text-5xl">👥</span>
               </div>
-            ))}
+              <h3 className="text-2xl font-bold text-secondary-800 mb-3">Coming Soon</h3>
+              <p className="text-secondary-600 max-w-md">
+                We're working on introducing our amazing team members. Stay tuned for updates!
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -224,24 +193,13 @@ const Team = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {departments.map((dept, index) => (
-              <div key={index} className="bg-white border border-secondary-200 rounded-lg p-6">
-                <h3 className="text-xl font-bold text-secondary-900 mb-3">{dept.name}</h3>
-                <div className="mb-4">
-                  <h4 className="font-semibold text-secondary-800 mb-2 text-sm">Team Members:</h4>
-                  <ul className="space-y-1">
-                    {dept.members.map((member, idx) => (
-                      <li key={idx} className="text-secondary-600 text-sm flex items-center">
-                        <span className="w-1.5 h-1.5 bg-primary-600 rounded-full mr-2"></span>
-                        {member}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              <div key={index} className="bg-white border border-secondary-200 rounded-lg p-6 hover:shadow-lg transition-shadow">
+                <h3 className="text-xl font-bold text-secondary-900 mb-4">{dept.name}</h3>
                 <div>
                   <h4 className="font-semibold text-secondary-800 mb-2 text-sm">Focus Areas:</h4>
-                  <div className="flex flex-wrap gap-1">
+                  <div className="flex flex-wrap gap-2">
                     {dept.focusAreas.map((area, idx) => (
-                      <span key={idx} className="bg-primary-100 text-primary-800 px-2 py-1 rounded text-xs font-medium">
+                      <span key={idx} className="bg-primary-100 text-primary-800 px-3 py-1 rounded-full text-xs font-medium">
                         {area}
                       </span>
                     ))}

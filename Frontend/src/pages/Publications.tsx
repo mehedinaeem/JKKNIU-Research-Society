@@ -1,6 +1,8 @@
-import { BookOpen, Quote, ExternalLink, Download } from 'lucide-react'
+// Imports commented out - Coming Soon
 
 const Publications = () => {
+  // Publications data commented out - Coming Soon
+  /*
   const publications = [
     {
       id: 1,
@@ -95,6 +97,7 @@ const Publications = () => {
       default: return 'bg-gray-100 text-gray-800'
     }
   }
+  */
 
   return (
     <div>
@@ -113,150 +116,20 @@ const Publications = () => {
         </div>
       </section>
 
-      {/* Statistics */}
-      <section className="py-12 bg-primary-600 text-white">
+      {/* Coming Soon Section */}
+      <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
-            <div>
-              <div className="text-3xl font-bold mb-2">200+</div>
-              <div className="text-primary-100">Total Publications</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold mb-2">15K+</div>
-              <div className="text-primary-100">Total Citations</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold mb-2">45+</div>
-              <div className="text-primary-100">International Journals</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold mb-2">3.5</div>
-              <div className="text-primary-100">Average Citation Rate</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Publications List */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-12">
-            <h2 className="text-3xl font-bold text-secondary-900 mb-4">Featured Publications</h2>
-            <p className="text-lg text-secondary-600">
-              Our latest research contributions in peer-reviewed journals and conferences
-            </p>
-          </div>
-
-          <div className="space-y-8">
-            {publications.map((pub) => (
-              <div key={pub.id} className="bg-white border border-secondary-200 rounded-lg p-8 hover:shadow-lg transition-shadow">
-                <div className="flex items-start space-x-4 mb-4">
-                  <BookOpen className="text-primary-600 mt-1 flex-shrink-0" size={24} />
-                  <div className="flex-1">
-                    <div className="flex flex-wrap items-center gap-2 mb-2">
-                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${getTypeColor(pub.type)}`}>
-                        {pub.type}
-                      </span>
-                      <span className="text-secondary-500 text-sm">{pub.year}</span>
-                      <span className="text-secondary-500 text-sm flex items-center">
-                        <Quote size={14} className="inline mr-1" />
-                        {pub.citations} citations
-                      </span>
-                    </div>
-                    <h3 className="text-2xl font-bold text-secondary-900 mb-2">{pub.title}</h3>
-                    <p className="text-secondary-600 mb-3">{pub.authors}</p>
-                    <p className="text-secondary-500 mb-3">
-                      <span className="font-medium">{pub.journal}</span> • Volume {pub.volume} • Pages {pub.pages}
-                    </p>
-                  </div>
-                </div>
-
-                <p className="text-secondary-600 mb-4 text-sm">
-                  <span className="font-semibold">Abstract:</span> {pub.abstract}
-                </p>
-
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {pub.keywords.map((keyword, idx) => (
-                    <span key={idx} className="bg-secondary-100 text-secondary-700 px-2 py-1 rounded text-sm">
-                      {keyword}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <a
-                    href={`https://doi.org/${pub.doi}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center space-x-2 bg-primary-100 text-primary-600 hover:bg-primary-200 font-medium py-2 px-4 rounded transition-colors"
-                  >
-                    <ExternalLink size={16} />
-                    <span>View on Publisher</span>
-                  </a>
-                  <button className="flex items-center justify-center space-x-2 bg-secondary-100 text-secondary-600 hover:bg-secondary-200 font-medium py-2 px-4 rounded transition-colors">
-                    <Download size={16} />
-                    <span>Download PDF</span>
-                  </button>
-                  <span className="text-secondary-500 text-sm flex items-center">
-                    DOI: {pub.doi}
-                  </span>
-                </div>
+          <div className="text-center">
+            <div className="flex flex-col items-center justify-center py-16">
+              <div className="w-28 h-28 mb-8 rounded-full bg-gradient-to-br from-primary-100 to-primary-200 flex items-center justify-center">
+                <span className="text-6xl">📚</span>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Research Metrics */}
-      <section className="py-16 bg-secondary-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-secondary-900 mb-4">Research Impact</h2>
-            <p className="text-lg text-secondary-600">
-              Our publications reach a global audience and contribute to advancing knowledge
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <h3 className="text-4xl font-bold text-primary-600 mb-2">92%</h3>
-              <p className="text-secondary-600">
-                Publications in Top-tier Journals
+              <h2 className="text-3xl font-bold text-secondary-800 mb-4">Coming Soon</h2>
+              <p className="text-secondary-600 max-w-lg text-lg">
+                We're working on compiling our research publications and academic papers.
+                Stay tuned for our comprehensive publication database!
               </p>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <h3 className="text-4xl font-bold text-primary-600 mb-2">50+</h3>
-              <p className="text-secondary-600">
-                International Conference Presentations
-              </p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <h3 className="text-4xl font-bold text-primary-600 mb-2">15+</h3>
-              <p className="text-secondary-600">
-                Collaborations with Global Universities
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Publication Database */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-secondary-900 mb-4">Full Publication Database</h2>
-          <p className="text-lg text-secondary-600 mb-8">
-            Access our complete research database and advanced search tools
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="btn-primary">
-              Search Database
-            </button>
-            <button className="btn-secondary">
-              Advanced Filters
-            </button>
-            <button className="btn-secondary">
-              Export Results
-            </button>
           </div>
         </div>
       </section>
