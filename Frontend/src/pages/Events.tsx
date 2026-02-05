@@ -23,7 +23,7 @@ const Events = () => {
       location: 'On Campus',
       description: 'Join the Young Researcher Recruitment 6.0 program! This is an exciting opportunity for undergraduate and graduate students to showcase their research skills, collaborate with experienced researchers, and contribute to groundbreaking research projects at JKKNIU Research Society.',
       type: 'Recruitment',
-      attendees: 250,
+      attendees: 100,
       registrationDeadline: 'February 15, 2026',
     }
   ]

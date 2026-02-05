@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react'
-import { Send, User, Mail, Phone, BookOpen, CheckCircle, Loader2, Upload, X, Image, FileText, Facebook, GraduationCap, Microscope, CreditCard, ChevronRight, ChevronLeft } from 'lucide-react'
+import { Send, User, Mail, Phone, BookOpen, CheckCircle, Loader2, Upload, X, Image, FileText, Facebook, GraduationCap, Microscope, CreditCard, ChevronRight, ChevronLeft, Copy } from 'lucide-react'
 
 interface FormData {
     name: string
@@ -167,6 +167,7 @@ const YoungResearcherForm = () => {
                 newErrors.email = 'Please enter a valid email'
             }
             if (!formData.whatsappNumber.trim()) newErrors.whatsappNumber = 'WhatsApp number is required'
+            if (!formData.formalPhotoUrl) newErrors.formalPhotoUrl = 'Formal photo is required'
         } else if (step === 2) {
             // Research Background validation
             if (!formData.researchInterest.trim()) newErrors.researchInterest = 'Research interest is required'
@@ -487,7 +488,7 @@ const YoungResearcherForm = () => {
                                 <div>
                                     <label className={labelClasses}>
                                         <Image size={16} className="text-blue-600" />
-                                        Formal Photo
+                                        Formal Photo <span className="text-red-500">*</span>
                                     </label>
                                     <div className="relative">
                                         {formData.formalPhotoUrl ? (
@@ -717,16 +718,26 @@ const YoungResearcherForm = () => {
                             </div>
                             <div className="bg-green-50 p-4 rounded-lg border border-green-200 mb-6">
                                 <p className="text-secondary-600 text-sm mb-3">
-                                    💰 A one-time, non-refundable application fee of <strong className="text-green-700">BDT 100</strong> is required to submit this application. Applicants must complete the payment via bKash or Nagad using the official numbers provided below before submitting the form and enter the correct payment information for verification.
+                                    💰 A one-time, non-refundable application fee of <strong className="text-green-700">BDT 100</strong> is required. <strong className="text-green-700">Send Money</strong>  (Personal Number) via bKash or Nagad using the official numbers provided below before submitting the form and enter the correct payment information for verification.
                                 </p>
                                 <div className="flex flex-wrap gap-4 mt-3">
-                                    <div className="flex items-center gap-2 bg-pink-100 px-4 py-2 rounded-lg">
+                                    <div
+                                        onClick={() => navigator.clipboard.writeText('01518975412')}
+                                        className="flex items-center gap-2 bg-pink-100 px-4 py-2 rounded-lg cursor-pointer hover:bg-pink-200 transition-colors active:scale-95"
+                                        title="Click to copy"
+                                    >
                                         <span className="font-bold text-pink-600">bKash:</span>
                                         <span className="text-pink-800 font-mono">01518975412</span>
+                                        <Copy size={16} className="text-pink-600" />
                                     </div>
-                                    <div className="flex items-center gap-2 bg-orange-100 px-4 py-2 rounded-lg">
+                                    <div
+                                        onClick={() => navigator.clipboard.writeText('01792220295')}
+                                        className="flex items-center gap-2 bg-orange-100 px-4 py-2 rounded-lg cursor-pointer hover:bg-orange-200 transition-colors active:scale-95"
+                                        title="Click to copy"
+                                    >
                                         <span className="font-bold text-orange-600">Nagad:</span>
                                         <span className="text-orange-800 font-mono">01792220295</span>
+                                        <Copy size={16} className="text-orange-600" />
                                     </div>
                                 </div>
                             </div>
