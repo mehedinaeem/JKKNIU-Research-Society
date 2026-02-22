@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
-import { Calendar, Clock, MapPin, Users } from 'lucide-react'
+import { useState } from 'react'
+import { Calendar, MapPin, Users, ChevronDown, ChevronUp, CheckCircle } from 'lucide-react'
 
 interface Event {
   id: number
@@ -15,7 +15,11 @@ interface Event {
 }
 
 const Events = () => {
-  const upcomingEvents: Event[] = [
+  const [expandedEvent, setExpandedEvent] = useState<number | null>(null)
+
+  const upcomingEvents: Event[] = []
+
+  const pastEvents: Event[] = [
     {
       id: 1,
       title: 'Young Researcher Recruitment 6.0',
@@ -24,11 +28,7 @@ const Events = () => {
       description: 'Join the Young Researcher Recruitment 6.0 program! This is an exciting opportunity for undergraduate and graduate students to showcase their research skills, collaborate with experienced researchers, and contribute to groundbreaking research projects at JKKNIU Research Society.',
       type: 'Recruitment',
       attendees: 100,
-      registrationDeadline: 'February 15, 2026',
-    }
-  ]
-
-  const pastEvents: Event[] = [
+    },
     {
       id: 2,
       title: 'Basic Research Training in Writing & Structuring Research Reports',
@@ -179,77 +179,27 @@ const Events = () => {
           </div>
 
           <div className="space-y-8">
-            {upcomingEvents.map((event) => (
-              <div key={event.id} className="rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
-                {/* Event Banner - visible on all devices */}
-                <div className="w-full">
-                  <img
-                    src="/media/banner.png"
-                    alt="Young Researcher Recruitment 6.0"
-                    className="w-full h-auto object-contain"
-                  />
-                </div>
-
-                {/* Event Details */}
-                <div className="bg-white border border-secondary-200 p-6 md:p-8">
-                  <div className="flex items-center space-x-3 mb-3">
-                    <span className={`px-3 py-1 rounded-full text-sm font-medium ${getEventTypeColor(event.type)}`}>
-                      {event.type}
-                    </span>
-                    <span className="text-secondary-500 text-sm">Registration deadline: {event.registrationDeadline}</span>
-                  </div>
-                  <p className="text-secondary-600 mb-4 text-justify">{event.description}</p>
-
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                    <div className="flex items-center space-x-2">
-                      <Calendar className="text-primary-600" size={20} />
-                      <span className="text-secondary-700">{event.date}</span>
+            {upcomingEvents.length > 0 ? (
+              upcomingEvents.map((event) => (
+                <div key={event.id} className="rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
+                  <div className="bg-white border border-secondary-200 p-6 md:p-8">
+                    <div className="flex items-center space-x-3 mb-3">
+                      <span className={`px-3 py-1 rounded-full text-sm font-medium ${getEventTypeColor(event.type)}`}>
+                        {event.type}
+                      </span>
                     </div>
-                    {event.time && (
-                      <div className="flex items-center space-x-2">
-                        <Clock className="text-primary-600" size={20} />
-                        <span className="text-secondary-700">{event.time}</span>
-                      </div>
-                    )}
-                    <div className="flex items-center space-x-2">
-                      <MapPin className="text-primary-600" size={20} />
-                      <span className="text-secondary-700">{event.location}</span>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center space-x-4 mb-4">
-                    <div className="flex items-center space-x-2">
-                      <Users className="text-primary-600" size={20} />
-                      <span className="text-secondary-700">Expected: {event.attendees} attendees</span>
-                    </div>
-                  </div>
-
-                  {event.speakers && (
-                    <div className="mb-6">
-                      <h4 className="font-semibold text-secondary-900 mb-2">Featured Speakers:</h4>
-                      <ul className="text-secondary-600">
-                        {event.speakers.map((speaker, index) => (
-                          <li key={index} className="flex items-center space-x-2">
-                            <span className="w-1.5 h-1.5 bg-primary-600 rounded-full"></span>
-                            <span>{speaker}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {/* Apply Button - bottom right */}
-                  <div className="flex justify-end mt-4 pt-4 border-t border-secondary-100">
-                    <Link
-                      to="/recruitment"
-                      className="btn-primary inline-flex items-center justify-center px-8 py-3"
-                    >
-                      Apply Now
-                    </Link>
+                    <h3 className="text-2xl font-bold text-secondary-900 mb-2">{event.title}</h3>
+                    <p className="text-secondary-600 mb-4 text-justify">{event.description}</p>
                   </div>
                 </div>
+              ))
+            ) : (
+              <div className="text-center py-12 bg-white rounded-lg border border-secondary-200">
+                <Calendar className="mx-auto text-secondary-400 mb-4" size={48} />
+                <h3 className="text-xl font-semibold text-secondary-700 mb-2">No Upcoming Events</h3>
+                <p className="text-secondary-500">Stay tuned for future events and activities!</p>
               </div>
-            ))}
+            )}
           </div>
         </div>
       </section>
@@ -290,9 +240,48 @@ const Events = () => {
                   </div>
                 </div>
 
-                <button className="mt-4 text-primary-600 hover:text-primary-700 text-sm font-medium">
-                  View Event Details →
-                </button>
+                {event.type === 'Recruitment' ? (
+                  <div>
+                    <div className="flex items-center justify-between mt-4 pt-4 border-t border-secondary-100">
+                      <span className="inline-block bg-red-100 text-red-700 text-sm font-semibold px-4 py-2 rounded-full">
+                        Recruitment Over
+                      </span>
+                      <button
+                        onClick={() => setExpandedEvent(expandedEvent === event.id ? null : event.id)}
+                        className="flex items-center space-x-1 text-primary-600 hover:text-primary-700 text-sm font-medium transition-colors"
+                      >
+                        <span>{expandedEvent === event.id ? 'Hide Details' : 'Show Details'}</span>
+                        {expandedEvent === event.id ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                      </button>
+                    </div>
+
+                    {expandedEvent === event.id && (
+                      <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg animate-fade-in">
+                        <div className="flex items-center space-x-2 mb-3">
+                          <CheckCircle className="text-green-600" size={24} />
+                          <h4 className="text-lg font-bold text-green-800">100 Applicants Accepted</h4>
+                        </div>
+                        <p className="text-green-700 text-sm">
+                          The recruitment process has been completed successfully. 100 applicants have been selected to join the Young Researcher program.
+                        </p>
+                        <div className="mt-3 grid grid-cols-2 gap-3">
+                          <div className="bg-white rounded-md p-3 text-center">
+                            <p className="text-2xl font-bold text-primary-600">100</p>
+                            <p className="text-xs text-secondary-500">Accepted</p>
+                          </div>
+                          <div className="bg-white rounded-md p-3 text-center">
+                            <p className="text-2xl font-bold text-secondary-700">{event.date}</p>
+                            <p className="text-xs text-secondary-500">Event Date</p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <button className="mt-4 text-primary-600 hover:text-primary-700 text-sm font-medium">
+                    View Event Details →
+                  </button>
+                )}
               </div>
             ))}
           </div>

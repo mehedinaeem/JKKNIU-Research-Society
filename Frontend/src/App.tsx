@@ -32,6 +32,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
           <Route path="/recruitment" element={<Recruitment />} />
+          <Route path="/events/recruitment" element={<Recruitment />} />
         </Routes>
       </main>
       <Footer />
