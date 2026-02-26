@@ -13,6 +13,7 @@ import Membership from './pages/Membership'
 import Contact from './pages/Contact'
 import Login from './pages/Login'
 import Recruitment from './pages/Recruitment'
+import YoungResearcherForm from './components/YoungResearcherForm'
 
 function App() {
   return (
@@ -33,6 +34,11 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/recruitment" element={<Recruitment />} />
           <Route path="/events/recruitment" element={<Recruitment />} />
+          <Route path="/events/recruitemets/special" element={
+            <div className="min-h-screen bg-gradient-to-br from-secondary-50 via-white to-primary-50 py-12 px-4">
+              <YoungResearcherForm />
+            </div>
+          } />
         </Routes>
       </main>
       <Footer />
