@@ -5,6 +5,8 @@ import Home from './pages/Home'
 import About from './pages/About'
 import ResearchAreas from './pages/ResearchAreas'
 import Events from './pages/Events'
+import EventDetails from './pages/EventDetails'
+import EventRegistration from './pages/EventRegistration'
 import Publications from './pages/Publications'
 import News from './pages/News'
 import AdvisoryBoard from './pages/AdvisoryBoard'
@@ -23,6 +25,8 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/research-areas" element={<ResearchAreas />} />
           <Route path="/events" element={<Events />} />
+          <Route path="/events/:slug" element={<EventDetails />} />
+          <Route path="/events/:slug/register" element={<EventRegistration />} />
           <Route path="/publications" element={<Publications />} />
           <Route path="/news" element={<News />} />
           <Route path="/advisory-board" element={<AdvisoryBoard />} />

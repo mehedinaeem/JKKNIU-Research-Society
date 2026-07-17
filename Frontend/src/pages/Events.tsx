@@ -1,37 +1,71 @@
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { Calendar, Clock, MapPin, Users, Loader2, AlertCircle } from 'lucide-react'
-import { fetchUpcomingEvents, fetchPastEvents, formatDate, type Event } from '../services/api'
+import { useEffect, useMemo, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import { Calendar, Clock, MapPin, UserRound, Users } from 'lucide-react'
+import {
+  events,
+  formatEventDate,
+  formatEventTimeRange,
+  formatStudentsRegistered,
+  type EventItem
+} from '../data/events'
+import { useRegistrationCount } from '../hooks/useRegistrationCount'
 
 const Events = () => {
-  const [upcomingEvents, setUpcomingEvents] = useState<Event[]>([])
-  const [pastEvents, setPastEvents] = useState<Event[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  const [currentTime, setCurrentTime] = useState(Date.now())
+  const location = useLocation()
 
   useEffect(() => {
-    const loadEvents = async () => {
-      try {
-        setLoading(true)
-        setError(null)
+    const refreshCurrentTime = () => setCurrentTime(Date.now())
 
-        const [upcoming, past] = await Promise.all([
-          fetchUpcomingEvents(),
-          fetchPastEvents()
-        ])
+    refreshCurrentTime()
+    const intervalId = window.setInterval(refreshCurrentTime, 60000)
 
-        setUpcomingEvents(upcoming)
-        setPastEvents(past)
-      } catch (err) {
-        console.error('Error loading events:', err)
-        setError('Failed to load events. Please make sure the backend server is running.')
-      } finally {
-        setLoading(false)
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        refreshCurrentTime()
       }
     }
 
-    loadEvents()
+    window.addEventListener('focus', refreshCurrentTime)
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+
+    return () => {
+      window.clearInterval(intervalId)
+      window.removeEventListener('focus', refreshCurrentTime)
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+    }
   }, [])
+
+  useEffect(() => {
+    if (location.pathname === '/events') {
+      setCurrentTime(Date.now())
+    }
+  }, [location.pathname])
+
+  const isPastEvent = (event: EventItem) =>
+    currentTime >= new Date(event.statusChangeDateTime).getTime()
+
+  const upcomingEvents = useMemo(
+    () =>
+      events
+        .filter((event) => !isPastEvent(event))
+        .sort(
+          (firstEvent, secondEvent) =>
+            new Date(firstEvent.startDateTime).getTime() - new Date(secondEvent.startDateTime).getTime()
+        ),
+    [currentTime]
+  )
+
+  const pastEvents = useMemo(
+    () =>
+      events
+        .filter((event) => isPastEvent(event))
+        .sort(
+          (firstEvent, secondEvent) =>
+            new Date(secondEvent.endDateTime).getTime() - new Date(firstEvent.endDateTime).getTime()
+        ),
+    [currentTime]
+  )
 
   const getEventTypeColor = (type: string) => {
     switch (type) {
@@ -43,37 +77,9 @@ const Events = () => {
       case 'Recruitment': return 'bg-orange-100 text-orange-800'
       case 'Webinar': return 'bg-indigo-100 text-indigo-800'
       case 'Milestone': return 'bg-pink-100 text-pink-800'
+      case 'Research Session': return 'bg-cyan-100 text-cyan-800'
       default: return 'bg-gray-100 text-gray-800'
     }
-  }
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <Loader2 className="w-12 h-12 animate-spin text-primary-600 mx-auto mb-4" />
-          <p className="text-secondary-600">Loading events...</p>
-        </div>
-      </div>
-    )
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center max-w-md mx-auto p-8">
-          <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
-          <h2 className="text-xl font-semibold text-secondary-900 mb-2">Unable to Load Events</h2>
-          <p className="text-secondary-600 mb-4">{error}</p>
-          <button
-            onClick={() => window.location.reload()}
-            className="btn-primary"
-          >
-            Try Again
-          </button>
-        </div>
-      </div>
-    )
   }
 
   return (
@@ -111,46 +117,46 @@ const Events = () => {
           ) : (
             <div className="space-y-8">
               {upcomingEvents.map((event) => (
-                <div key={event.id} className="rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
+                <div key={event.id} className="rounded-lg overflow-hidden border-2 border-primary-200 shadow-lg hover:shadow-xl transition-shadow">
                   {/* Event Banner */}
-                  {event.banner_image_url && (
-                    <div
-                      className="hidden md:flex relative w-full h-64 md:h-80 items-center justify-center overflow-hidden bg-cover bg-center"
-                      style={{ backgroundImage: `url(${event.banner_image_url})` }}
-                    >
-                      <div className="absolute inset-0 bg-black/0"></div>
-                    </div>
-                  )}
+                  <div className="w-full overflow-hidden border-b border-secondary-200 bg-white">
+                    <img
+                      src={event.bannerImage}
+                      alt={`${event.title} event banner`}
+                      className="block w-full h-auto max-w-full object-contain"
+                    />
+                  </div>
 
                   {/* Event Details */}
                   <div className="bg-white border border-secondary-200 p-8">
                     <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-6">
                       <div className="flex-1">
                         <div className="flex items-center space-x-3 mb-3">
-                          <span className={`px-3 py-1 rounded-full text-sm font-medium ${getEventTypeColor(event.event_type)}`}>
-                            {event.event_type}
+                          <span className={`px-3 py-1 rounded-full text-sm font-medium ${getEventTypeColor(event.eventType)}`}>
+                            {event.eventType}
                           </span>
-                          {event.registration_deadline && (
-                            <span className="text-secondary-500 text-sm">
-                              Registration deadline: {formatDate(event.registration_deadline)}
-                            </span>
-                          )}
                         </div>
                         <h3 className="text-2xl font-bold text-secondary-900 mb-3">{event.title}</h3>
                         <p className="text-secondary-600 mb-4">{event.description}</p>
 
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                           <div className="flex items-center space-x-2">
                             <Calendar className="text-primary-600" size={20} />
-                            <span className="text-secondary-700">{formatDate(event.date)}</span>
+                            <span className="text-secondary-700">{event.eventDate || formatEventDate(event.startDateTime)}</span>
                           </div>
-                          {event.time && (
-                            <div className="flex items-center space-x-2">
-                              <Clock className="text-primary-600" size={20} />
-                              <span className="text-secondary-700">{event.time}</span>
-                            </div>
-                          )}
                           <div className="flex items-center space-x-2">
+                            <Clock className="text-primary-600" size={20} />
+                            <span className="text-secondary-700">{formatEventTimeRange(event.startDateTime, event.endDateTime)}</span>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <UserRound className="text-primary-600" size={20} />
+                            <span className="text-secondary-700">{event.speaker}</span>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <UserRound className="text-primary-600" size={20} />
+                            <span className="text-secondary-700">{event.speakerDesignation}</span>
+                          </div>
+                          <div className="flex items-start space-x-2 md:col-span-2">
                             <MapPin className="text-primary-600" size={20} />
                             <span className="text-secondary-700">{event.location}</span>
                           </div>
@@ -159,31 +165,23 @@ const Events = () => {
                         <div className="flex items-center space-x-4 mb-4">
                           <div className="flex items-center space-x-2">
                             <Users className="text-primary-600" size={20} />
-                            <span className="text-secondary-700">Expected: {event.attendees} attendees</span>
+                            <EventRegistrationCount registrationCountUrl={event.registrationCountUrl} />
                           </div>
                         </div>
-
-                        {event.speakers_list && event.speakers_list.length > 0 && (
-                          <div className="mb-4">
-                            <h4 className="font-semibold text-secondary-900 mb-2">Featured Speakers:</h4>
-                            <ul className="text-secondary-600">
-                              {event.speakers_list.map((speaker, index) => (
-                                <li key={index} className="flex items-center space-x-2">
-                                  <span className="w-1.5 h-1.5 bg-primary-600 rounded-full"></span>
-                                  <span>{speaker}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
                       </div>
 
-                      <div className="lg:ml-8 mt-6 lg:mt-0">
+                      <div className="lg:ml-8 mt-6 lg:mt-0 flex flex-col sm:flex-row lg:flex-col gap-3">
                         <Link
-                          to="/contact"
+                          to={`/events/${event.slug}/register`}
                           className="btn-primary w-full lg:w-auto inline-flex items-center justify-center"
                         >
                           Register Now
+                        </Link>
+                        <Link
+                          to={`/events/${event.slug}`}
+                          className="btn-secondary w-full lg:w-auto inline-flex items-center justify-center"
+                        >
+                          View Details
                         </Link>
                       </div>
                     </div>
@@ -214,30 +212,52 @@ const Events = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {pastEvents.map((event) => (
                 <div key={event.id} className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
+                  <EventPoster imageSrc={event.bannerImage} title={event.title} heightClassName="h-52" />
                   <div className="flex items-center space-x-3 mb-3">
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${getEventTypeColor(event.event_type)}`}>
-                      {event.event_type}
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${getEventTypeColor(event.eventType)}`}>
+                      {event.eventType}
+                    </span>
+                    <span className="px-2 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
+                      Event Completed
                     </span>
                   </div>
                   <h3 className="text-xl font-semibold text-secondary-900 mb-2">{event.title}</h3>
-                  <p className="text-secondary-600 text-sm mb-3 line-clamp-3">{event.description}</p>
+                  <p className="text-secondary-600 text-sm mb-3">{event.description}</p>
 
                   <div className="space-y-2 text-sm text-secondary-500">
                     <div className="flex items-center space-x-2">
                       <Calendar size={16} />
-                      <span>{formatDate(event.date)}</span>
+                      <span>{event.eventDate || formatEventDate(event.startDateTime)}</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Clock size={16} />
+                      <span>{formatEventTimeRange(event.startDateTime, event.endDateTime)}</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <UserRound size={16} />
+                      <span>{event.speaker}</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <UserRound size={16} />
+                      <span>{event.speakerDesignation}</span>
                     </div>
                     <div className="flex items-center space-x-2">
                       <MapPin size={16} />
                       <span>{event.location}</span>
                     </div>
-                    {event.attendees > 0 && (
-                      <div className="flex items-center space-x-2">
-                        <Users size={16} />
-                        <span>{event.attendees} attendees</span>
-                      </div>
-                    )}
+                    <div className="flex items-center space-x-2">
+                      <Users size={16} />
+                      <EventRegistrationCount registrationCountUrl={event.registrationCountUrl} />
+                    </div>
+                    <div className="text-emerald-700 font-medium">Registration Closed</div>
                   </div>
+
+                  <Link
+                    to={`/events/${event.slug}`}
+                    className="btn-secondary w-full inline-flex items-center justify-center mt-4"
+                  >
+                    View Event Details
+                  </Link>
                 </div>
               ))}
             </div>
@@ -264,6 +284,49 @@ const Events = () => {
       </section>
     </div>
   )
+}
+
+interface EventPosterProps {
+  imageSrc: string
+  title: string
+  heightClassName: string
+}
+
+const EventPoster = ({ imageSrc, title, heightClassName }: EventPosterProps) => {
+  const [hasLoadError, setHasLoadError] = useState(false)
+
+  if (!imageSrc || hasLoadError) {
+    return (
+      <div className={`w-full ${heightClassName} flex items-center justify-center bg-secondary-100 border border-secondary-200 rounded-lg mb-4`}>
+        <p className="text-secondary-500 text-sm">Poster placeholder</p>
+      </div>
+    )
+  }
+
+  return (
+    <div className={`w-full ${heightClassName} bg-secondary-50 flex items-center justify-center p-4 overflow-hidden`}>
+      <img
+        src={imageSrc}
+        alt={`${title} poster`}
+        className="max-w-full max-h-full object-contain"
+        onError={() => setHasLoadError(true)}
+      />
+    </div>
+  )
+}
+
+const EventRegistrationCount = ({ registrationCountUrl }: { registrationCountUrl: string }) => {
+  const { count, isLoading, error } = useRegistrationCount(registrationCountUrl)
+
+  if (isLoading) {
+    return <span className="text-secondary-700">Loading registration count...</span>
+  }
+
+  if (error || count === null) {
+    return <span className="text-secondary-700">Registration count unavailable</span>
+  }
+
+  return <span className="text-secondary-700">{formatStudentsRegistered(count)}</span>
 }
 
 export default Events
