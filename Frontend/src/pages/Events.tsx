@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Calendar, Clock, MapPin, UserRound, Users } from 'lucide-react'
+import { Calendar, CheckCircle, ChevronDown, ChevronUp, Clock, MapPin, UserRound, Users } from 'lucide-react'
 import {
   events,
   formatEventDate,
@@ -9,8 +9,35 @@ import {
 } from '../data/events'
 import { useRegistrationCount } from '../hooks/useRegistrationCount'
 
+interface HistoricalEvent {
+  id: number
+  title: string
+  date: string
+  location: string
+  description: string
+  type: string
+  attendees: number
+}
+
+const historicalPastEvents: HistoricalEvent[] = [
+  { id: 101, title: 'Young Researcher Recruitment 6.0', date: 'February 15, 2026', location: 'On Campus', description: 'An opportunity for undergraduate and graduate students to showcase their research skills, collaborate with experienced researchers, and contribute to research projects at JKKNIU Research Society.', type: 'Recruitment', attendees: 100 },
+  { id: 102, title: 'Basic Research Training in Writing & Structuring Research Reports', date: 'September 13, 2025', location: 'Online / JKKNIU', description: 'Dr. Tion R. Swaford, Marian University, USA conducted this session on writing and structuring research reports.', type: 'Workshop', attendees: 100 },
+  { id: 103, title: 'Basic Research ও Research Methodology কর্মশালা', date: 'June 15, 2025', location: 'JKKNIU Campus', description: 'Part of the ongoing workshop series on Basic Research and Methodology.', type: 'Workshop', attendees: 120 },
+  { id: 104, title: 'Basics of Social Research কর্মশালা', date: 'December 1, 2024', location: 'JKKNIU Campus', description: 'Conducted by Dr. Md. Bakhtiar Uddin, JKKNIU.', type: 'Workshop', attendees: 80 },
+  { id: 105, title: 'Stipendium Hungaricum স্কলারশিপ ওয়েবিনার', date: 'January 13, 2024', location: 'Online Webinar', description: 'A session guiding students on the Stipendium Hungaricum Scholarship application process.', type: 'Webinar', attendees: 200 },
+  { id: 106, title: 'ফ্রেশার্স রিসেপশন ও উচ্চশিক্ষা বিষয়ক সেমিনার', date: 'June 5, 2024', location: 'JKKNIU Auditorium', description: 'Annual reception for new batches and seminar on higher education opportunities.', type: 'Seminar', attendees: 300 },
+  { id: 107, title: 'Research Excellence: Roadmap for Emerging Scholars', date: 'November 26, 2023', location: 'JKKNIU Campus', description: "Speaker: Dr. Allahi, recognized as one of the world's top 2% researchers.", type: 'Seminar', attendees: 150 },
+  { id: 108, title: 'রিসার্চ প্রপোজাল ও কলাম রাইটিং: ক্যারিয়ার পরিকল্পনা', date: 'October 10, 2023', location: 'JKKNIU Campus', description: 'Workshop on writing research proposals and newspaper columns for career development.', type: 'Workshop', attendees: 100 },
+  { id: 109, title: 'Python প্রোগ্রামিং কর্মশালা', date: 'November 26, 2022', location: 'Computer Lab, JKKNIU', description: 'Hands-on training on Python programming for research and data analysis.', type: 'Workshop', attendees: 60 },
+  { id: 110, title: 'MS Office ও Mendeley কর্মশালা', date: 'November 24, 2022', location: 'JKKNIU Campus', description: 'Conducted by Sabuj Chandra Bhowmik, Commonwealth Scholar.', type: 'Workshop', attendees: 80 },
+  { id: 111, title: 'SPSS কর্মশালা', date: 'November 22, 2022', location: 'JKKNIU Campus', description: 'Conducted by Professor Dr. Raju Ahmed.', type: 'Workshop', attendees: 70 },
+  { id: 112, title: 'MATLAB কর্মশালা', date: 'October 21, 2022', location: 'JKKNIU Campus', description: 'Conducted by Professor Dr. Sheikh Sujan Ali.', type: 'Workshop', attendees: 70 },
+  { id: 113, title: 'JKKNIU Research Society প্রতিষ্ঠা', date: '2017', location: 'JKKNIU', description: 'Founding of JKKNIU Research Society and official recognition in Kaler Kantho.', type: 'Milestone', attendees: 0 }
+]
+
 const Events = () => {
   const [currentTime, setCurrentTime] = useState(Date.now())
+  const [expandedHistoricalEvent, setExpandedHistoricalEvent] = useState<number | null>(null)
   const location = useLocation()
 
   useEffect(() => {
@@ -199,7 +226,7 @@ const Events = () => {
             </p>
           </div>
 
-          {pastEvents.length === 0 ? (
+          {pastEvents.length === 0 && historicalPastEvents.length === 0 ? (
             <div className="text-center py-12 bg-white rounded-lg">
               <Calendar className="w-12 h-12 text-secondary-400 mx-auto mb-4" />
               <p className="text-secondary-600">No past events to display.</p>
@@ -255,6 +282,49 @@ const Events = () => {
                     View Event Details
                   </Link>
                 </div>
+              ))}
+              {historicalPastEvents.map((event) => (
+                <article key={event.id} className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow flex flex-col">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${getEventTypeColor(event.type)}`}>
+                      {event.type}
+                    </span>
+                    <span className="px-2 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
+                      Event Completed
+                    </span>
+                  </div>
+                  <h3 className="text-xl font-semibold text-secondary-900 mb-2">{event.title}</h3>
+                  <p className="text-secondary-600 text-sm mb-4 flex-1">{event.description}</p>
+
+                  <div className="space-y-2 text-sm text-secondary-500">
+                    <div className="flex items-center gap-2"><Calendar size={16} /><span>{event.date}</span></div>
+                    <div className="flex items-center gap-2"><MapPin size={16} /><span>{event.location}</span></div>
+                    <div className="flex items-center gap-2"><Users size={16} /><span>{event.attendees} attendees</span></div>
+                  </div>
+
+                  {event.type === 'Recruitment' && (
+                    <div className="mt-4 pt-4 border-t border-secondary-100">
+                      <button
+                        type="button"
+                        onClick={() => setExpandedHistoricalEvent(expandedHistoricalEvent === event.id ? null : event.id)}
+                        className="w-full flex items-center justify-between text-primary-600 hover:text-primary-700 text-sm font-medium"
+                        aria-expanded={expandedHistoricalEvent === event.id}
+                      >
+                        <span>Recruitment Over</span>
+                        {expandedHistoricalEvent === event.id ? <ChevronUp size={17} /> : <ChevronDown size={17} />}
+                      </button>
+                      {expandedHistoricalEvent === event.id && (
+                        <div className="mt-3 p-4 bg-green-50 border border-green-200 rounded-lg">
+                          <div className="flex items-center gap-2 text-green-800 font-semibold">
+                            <CheckCircle size={20} />
+                            <span>100 Applicants Accepted</span>
+                          </div>
+                          <p className="mt-2 text-green-700 text-sm">The recruitment process was completed successfully.</p>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </article>
               ))}
             </div>
           )}
