@@ -1,0 +1,18 @@
+# Python generated files and local environments
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+
+# Frontend dependencies and generated caches
+node_modules/
+dist/
+.vite/
+
+# Local configuration and editor files
+.env
+.env.local
+.DS_Store
+*.log
+.vscode/settings.json

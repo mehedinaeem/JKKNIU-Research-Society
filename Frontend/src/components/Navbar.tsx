@@ -56,7 +56,7 @@ const Navbar = () => {
     { name: 'Advisory Board', href: '/advisory-board' },
     { name: 'Our Team', href: '/team' },
     // { name: 'Membership', href: '/membership' },
-    // { name: 'Contact', href: '/contact' },
+    { name: 'Contact', href: '/contact' },
   ]
 
   const isActive = (href: string) => location.pathname === href

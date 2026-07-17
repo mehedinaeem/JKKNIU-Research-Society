@@ -1,0 +1,13 @@
+# Django and REST Framework
+Django>=4.2,<5.0
+djangorestframework>=3.14.0
+django-cors-headers>=4.3.0
+
+# Image handling
+Pillow>=10.0.0
+
+# Database (optional - for production)
+# psycopg2-binary>=2.9.9  # PostgreSQL
+
+# Development tools
+# django-debug-toolbar>=4.2.0
