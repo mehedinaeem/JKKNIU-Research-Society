@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
-import { Calendar, CheckCircle, ChevronDown, ChevronUp, Clock, MapPin, UserRound, Users } from 'lucide-react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Calendar, CheckCircle, ChevronDown, ChevronUp, Clock, ExternalLink, MapPin, UserRound, Users } from 'lucide-react'
 import {
   events,
   formatEventDate,
@@ -16,29 +16,40 @@ interface HistoricalEvent {
   location: string
   description: string
   type: string
-  attendees: number
+  attendees?: number
+  image?: string
+  facebookPostUrl?: string
+  details?: string[]
 }
 
+const facebookPageUrl = 'https://www.facebook.com/JKKNIURS'
+
 const historicalPastEvents: HistoricalEvent[] = [
-  { id: 101, title: 'Young Researcher Recruitment 6.0', date: 'February 15, 2026', location: 'On Campus', description: 'An opportunity for undergraduate and graduate students to showcase their research skills, collaborate with experienced researchers, and contribute to research projects at JKKNIU Research Society.', type: 'Recruitment', attendees: 100 },
-  { id: 102, title: 'Basic Research Training in Writing & Structuring Research Reports', date: 'September 13, 2025', location: 'Online / JKKNIU', description: 'Dr. Tion R. Swaford, Marian University, USA conducted this session on writing and structuring research reports.', type: 'Workshop', attendees: 100 },
-  { id: 103, title: 'Basic Research ও Research Methodology কর্মশালা', date: 'June 15, 2025', location: 'JKKNIU Campus', description: 'Part of the ongoing workshop series on Basic Research and Methodology.', type: 'Workshop', attendees: 120 },
-  { id: 104, title: 'Basics of Social Research কর্মশালা', date: 'December 1, 2024', location: 'JKKNIU Campus', description: 'Conducted by Dr. Md. Bakhtiar Uddin, JKKNIU.', type: 'Workshop', attendees: 80 },
-  { id: 105, title: 'Stipendium Hungaricum স্কলারশিপ ওয়েবিনার', date: 'January 13, 2024', location: 'Online Webinar', description: 'A session guiding students on the Stipendium Hungaricum Scholarship application process.', type: 'Webinar', attendees: 200 },
-  { id: 106, title: 'ফ্রেশার্স রিসেপশন ও উচ্চশিক্ষা বিষয়ক সেমিনার', date: 'June 5, 2024', location: 'JKKNIU Auditorium', description: 'Annual reception for new batches and seminar on higher education opportunities.', type: 'Seminar', attendees: 300 },
-  { id: 107, title: 'Research Excellence: Roadmap for Emerging Scholars', date: 'November 26, 2023', location: 'JKKNIU Campus', description: "Speaker: Dr. Allahi, recognized as one of the world's top 2% researchers.", type: 'Seminar', attendees: 150 },
-  { id: 108, title: 'রিসার্চ প্রপোজাল ও কলাম রাইটিং: ক্যারিয়ার পরিকল্পনা', date: 'October 10, 2023', location: 'JKKNIU Campus', description: 'Workshop on writing research proposals and newspaper columns for career development.', type: 'Workshop', attendees: 100 },
-  { id: 109, title: 'Python প্রোগ্রামিং কর্মশালা', date: 'November 26, 2022', location: 'Computer Lab, JKKNIU', description: 'Hands-on training on Python programming for research and data analysis.', type: 'Workshop', attendees: 60 },
-  { id: 110, title: 'MS Office ও Mendeley কর্মশালা', date: 'November 24, 2022', location: 'JKKNIU Campus', description: 'Conducted by Sabuj Chandra Bhowmik, Commonwealth Scholar.', type: 'Workshop', attendees: 80 },
-  { id: 111, title: 'SPSS কর্মশালা', date: 'November 22, 2022', location: 'JKKNIU Campus', description: 'Conducted by Professor Dr. Raju Ahmed.', type: 'Workshop', attendees: 70 },
-  { id: 112, title: 'MATLAB কর্মশালা', date: 'October 21, 2022', location: 'JKKNIU Campus', description: 'Conducted by Professor Dr. Sheikh Sujan Ali.', type: 'Workshop', attendees: 70 },
-  { id: 113, title: 'JKKNIU Research Society প্রতিষ্ঠা', date: '2017', location: 'JKKNIU', description: 'Founding of JKKNIU Research Society and official recognition in Kaler Kantho.', type: 'Milestone', attendees: 0 }
+  { id: 101, title: 'Young Researcher Recruitment 6.0', date: 'February 15, 2026', location: 'JKKNIU Campus', description: 'A society-wide recruitment programme for motivated undergraduate and graduate students interested in research, academic writing, publication, conferences, and collaborative projects.', type: 'Recruitment', attendees: 100, image: '/recruitment-banner.png', facebookPostUrl: facebookPageUrl, details: ['Applications were invited online alongside an offline campus campaign.', 'The completed recruitment cycle accepted 100 applicants.'] },
+  { id: 102, title: 'Basic Research Training in Writing & Structuring Research Reports', date: 'September 13, 2025', location: 'Online / JKKNIU', description: 'A focused training session on organizing, writing, and presenting a clear research report, conducted by Dr. Tion R. Swaford of Marian University, USA.', type: 'Workshop', attendees: 100, facebookPostUrl: facebookPageUrl, details: ['Covered the core structure and logical flow of a research report.', 'Connected JKKNIU learners with an international research educator.'] },
+  { id: 103, title: 'Basic Research ও Research Methodology কর্মশালা', date: 'June 15, 2025', location: 'JKKNIU Campus', description: 'A practical workshop introducing basic research concepts and the methodology used to plan and carry out an academic study.', type: 'Workshop', attendees: 120, facebookPostUrl: facebookPageUrl, details: ['Part of the society’s continuing Basic Research and Methodology workshop series.', 'Designed to strengthen students’ foundations in research planning.'] },
+  { id: 104, title: 'Basics of Social Research কর্মশালা', date: 'December 1, 2024', location: 'JKKNIU Campus', description: 'An introductory social-research workshop conducted by Dr. Md. Bakhtiar Uddin of JKKNIU.', type: 'Workshop', attendees: 80, facebookPostUrl: facebookPageUrl, details: ['Introduced the foundations and process of social-science research.', 'Helped participants connect research questions with suitable methods.'] },
+  { id: 106, title: 'ফ্রেশার্স রিসেপশন ও উচ্চশিক্ষা বিষয়ক সেমিনার', date: 'June 5, 2024', location: 'JKKNIU Auditorium', description: 'The society’s annual welcome programme for new students, combined with an academic seminar on higher-education opportunities and preparation.', type: 'Seminar', attendees: 300, facebookPostUrl: facebookPageUrl, details: ['Welcomed new batches into the JKKNIU research community.', 'Shared guidance on higher study pathways and academic development.'] },
+  { id: 105, title: 'Stipendium Hungaricum স্কলারশিপ ওয়েবিনার', date: 'January 13, 2024', location: 'Online Webinar', description: 'An online guidance session for students interested in the Stipendium Hungaricum scholarship and its application process.', type: 'Webinar', attendees: 200, facebookPostUrl: facebookPageUrl, details: ['Discussed scholarship opportunities and application preparation.', 'Allowed prospective applicants to receive focused guidance online.'] },
+  { id: 107, title: 'Research Excellence: Roadmap for Emerging Scholars', date: 'November 26, 2023', location: 'JKKNIU Campus', description: 'A research-development seminar featuring Dr. Allahi, recognized among the world’s top 2% of researchers, on building a pathway toward research excellence.', type: 'Seminar', attendees: 150, facebookPostUrl: facebookPageUrl, details: ['Focused on practical direction for early-career and emerging researchers.', 'Explored habits, planning, and academic development needed for impactful scholarship.'] },
+  { id: 108, title: 'রিসার্চ প্রপোজাল ও কলাম রাইটিং: ক্যারিয়ার পরিকল্পনা', date: 'October 10, 2023', location: 'JKKNIU Campus', description: 'A career-oriented workshop on preparing research proposals and writing newspaper columns, connecting academic communication with professional development.', type: 'Workshop', attendees: 100, facebookPostUrl: facebookPageUrl, details: ['Introduced the essential parts of an effective research proposal.', 'Discussed column writing as a tool for public communication and career growth.'] },
+  { id: 114, title: 'Freshers’ Reception & Prize-Giving Ceremony 2022', date: '2023 (exact date unavailable)', location: 'JKKNIU Campus', description: 'A reception for freshers and prize-giving programme celebrating student participation and achievement within the research community.', type: 'Other', facebookPostUrl: facebookPageUrl, details: ['The programme is documented in a public event gallery.', 'The exact programme date and attendance figure are not available in the current archive.'] },
+  { id: 109, title: 'Python প্রোগ্রামিং কর্মশালা', date: 'November 26, 2022', location: 'Computer Lab, JKKNIU', description: 'A hands-on Python programming workshop demonstrating how coding can support research, data processing, and analysis.', type: 'Workshop', attendees: 60, facebookPostUrl: facebookPageUrl, details: ['Provided practical computer-lab experience.', 'Introduced Python as a research and data-analysis tool.'] },
+  { id: 110, title: 'MS Office ও Mendeley কর্মশালা', date: 'November 24, 2022', location: 'JKKNIU Campus', description: 'A productivity and reference-management workshop conducted by Commonwealth Scholar Sabuj Chandra Bhowmik.', type: 'Workshop', attendees: 80, facebookPostUrl: facebookPageUrl, details: ['Covered essential MS Office tools used in academic work.', 'Introduced Mendeley for organizing sources, citations, and bibliographies.'] },
+  { id: 111, title: 'SPSS কর্মশালা', date: 'November 22, 2022', location: 'JKKNIU Campus', description: 'A practical SPSS workshop conducted by Professor Dr. Raju Ahmed, focused on statistical analysis for academic research.', type: 'Workshop', attendees: 70, facebookPostUrl: facebookPageUrl, details: ['Introduced participants to SPSS-based data handling.', 'Connected statistical tools with common research-analysis tasks.'] },
+  { id: 112, title: 'MATLAB কর্মশালা', date: 'October 21, 2022', location: 'JKKNIU Campus', description: 'A MATLAB workshop conducted by Professor Dr. Sheikh Sujan Ali, introducing computational tools used in technical and quantitative research.', type: 'Workshop', attendees: 70, facebookPostUrl: facebookPageUrl, details: ['Introduced MATLAB’s research and numerical-computing workflow.', 'Provided guided exposure to computational problem-solving.'] },
+  { id: 113, title: 'JKKNIU Research Society প্রতিষ্ঠা', date: '2017', location: 'JKKNIU', description: 'The founding milestone of JKKNIU Research Society, establishing a student-focused platform for research learning, collaboration, and knowledge exchange.', type: 'Milestone', facebookPostUrl: facebookPageUrl, details: ['Marks the beginning of the society’s research-focused activities.', 'The milestone received recognition in Kaler Kantho.'] }
 ]
 
 const Events = () => {
   const [currentTime, setCurrentTime] = useState(Date.now())
   const [expandedHistoricalEvent, setExpandedHistoricalEvent] = useState<number | null>(null)
   const location = useLocation()
+  const navigate = useNavigate()
+
+  const toggleHistoricalEvent = (eventId: number) => {
+    setExpandedHistoricalEvent((currentId) => currentId === eventId ? null : eventId)
+  }
 
   useEffect(() => {
     const refreshCurrentTime = () => setCurrentTime(Date.now())
@@ -234,7 +245,20 @@ const Events = () => {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {pastEvents.map((event) => (
-                <div key={event.id} className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
+                <article
+                  key={event.id}
+                  role="link"
+                  tabIndex={0}
+                  onClick={() => navigate(`/events/${event.slug}`)}
+                  onKeyDown={(keyboardEvent) => {
+                    if (keyboardEvent.key === 'Enter' || keyboardEvent.key === ' ') {
+                      keyboardEvent.preventDefault()
+                      navigate(`/events/${event.slug}`)
+                    }
+                  }}
+                  className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  aria-label={`View details for ${event.title}`}
+                >
                   <EventPoster imageSrc={event.bannerImage} title={event.title} heightClassName="h-52" />
                   <div className="flex items-center space-x-3 mb-3">
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${getEventTypeColor(event.eventType)}`}>
@@ -277,42 +301,80 @@ const Events = () => {
 
                   <Link
                     to={`/events/${event.slug}`}
+                    onClick={(clickEvent) => clickEvent.stopPropagation()}
                     className="btn-secondary w-full inline-flex items-center justify-center mt-4"
                   >
                     View Event Details
                   </Link>
-                </div>
+                </article>
               ))}
               {historicalPastEvents.map((event) => (
-                <article key={event.id} className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow flex flex-col">
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${getEventTypeColor(event.type)}`}>
-                      {event.type}
-                    </span>
-                    <span className="px-2 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
-                      Event Completed
-                    </span>
+                <article
+                  key={event.id}
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => toggleHistoricalEvent(event.id)}
+                  onKeyDown={(keyboardEvent) => {
+                    if (keyboardEvent.key === 'Enter' || keyboardEvent.key === ' ') {
+                      keyboardEvent.preventDefault()
+                      toggleHistoricalEvent(event.id)
+                    }
+                  }}
+                  className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-500 flex flex-col"
+                  aria-expanded={expandedHistoricalEvent === event.id}
+                  aria-label={`${expandedHistoricalEvent === event.id ? 'Hide' : 'Show'} details for ${event.title}`}
+                >
+                  {event.image && <EventPoster imageSrc={event.image} title={event.title} heightClassName="h-52" />}
+                  <div className="flex items-start justify-between gap-3 mb-3">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${getEventTypeColor(event.type)}`}>
+                        {event.type}
+                      </span>
+                      <span className="px-2 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
+                        Event Completed
+                      </span>
+                    </div>
+                    {event.facebookPostUrl && (
+                      <a
+                        href={event.facebookPostUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(clickEvent) => clickEvent.stopPropagation()}
+                        className="shrink-0 inline-flex items-center gap-1 rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 hover:bg-blue-100 transition-colors"
+                        aria-label={`View ${event.title} on Facebook`}
+                        title="View on Facebook"
+                      >
+                        Facebook <ExternalLink size={13} />
+                      </a>
+                    )}
                   </div>
                   <h3 className="text-xl font-semibold text-secondary-900 mb-2">{event.title}</h3>
-                  <p className="text-secondary-600 text-sm mb-4 flex-1">{event.description}</p>
+                  <p className="text-secondary-600 text-sm mb-4">{event.description}</p>
+
+                  <div className="flex items-center justify-between mb-4 text-sm font-medium text-primary-600">
+                    <span>{expandedHistoricalEvent === event.id ? 'Hide details' : 'Click card to view details'}</span>
+                    {expandedHistoricalEvent === event.id ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+                  </div>
+
+                  {expandedHistoricalEvent === event.id && event.details && (
+                    <div className="mb-4 rounded-lg border border-primary-100 bg-primary-50 p-4">
+                      <h4 className="mb-2 font-semibold text-secondary-900">Event details</h4>
+                      <ul className="space-y-1 text-sm text-secondary-600 list-disc pl-5">
+                        {event.details.map((detail) => <li key={detail}>{detail}</li>)}
+                      </ul>
+                    </div>
+                  )}
 
                   <div className="space-y-2 text-sm text-secondary-500">
                     <div className="flex items-center gap-2"><Calendar size={16} /><span>{event.date}</span></div>
                     <div className="flex items-center gap-2"><MapPin size={16} /><span>{event.location}</span></div>
-                    <div className="flex items-center gap-2"><Users size={16} /><span>{event.attendees} attendees</span></div>
+                    {event.attendees !== undefined && (
+                      <div className="flex items-center gap-2"><Users size={16} /><span>{event.attendees} attendees</span></div>
+                    )}
                   </div>
 
                   {event.type === 'Recruitment' && (
                     <div className="mt-4 pt-4 border-t border-secondary-100">
-                      <button
-                        type="button"
-                        onClick={() => setExpandedHistoricalEvent(expandedHistoricalEvent === event.id ? null : event.id)}
-                        className="w-full flex items-center justify-between text-primary-600 hover:text-primary-700 text-sm font-medium"
-                        aria-expanded={expandedHistoricalEvent === event.id}
-                      >
-                        <span>Recruitment Over</span>
-                        {expandedHistoricalEvent === event.id ? <ChevronUp size={17} /> : <ChevronDown size={17} />}
-                      </button>
                       {expandedHistoricalEvent === event.id && (
                         <div className="mt-3 p-4 bg-green-50 border border-green-200 rounded-lg">
                           <div className="flex items-center gap-2 text-green-800 font-semibold">
