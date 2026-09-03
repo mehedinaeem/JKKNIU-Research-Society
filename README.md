@@ -1,1 +1,1 @@
-﻿# Jatiya Kabi Kazi Nazrul Islam - Research Society
+﻿# Jatiya Kabi Kazi Nazrul Islam University - Research Society
