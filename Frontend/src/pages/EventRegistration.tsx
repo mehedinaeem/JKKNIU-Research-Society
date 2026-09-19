@@ -17,7 +17,7 @@ import {
   formatEventDate,
   formatEventTimeRange,
   formatStudentsRegistered
-} from '../data/events'
+} from '../data/eventRegistration'
 import { useRegistrationCount } from '../hooks/useRegistrationCount'
 
 interface RegistrationFormValues {

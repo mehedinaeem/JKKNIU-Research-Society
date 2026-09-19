@@ -1,135 +1,24 @@
-import { useState } from 'react'
+import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { Calendar, Clock, MapPin, UserRound, Users } from 'lucide-react'
-import {
-  events,
-  formatEventDate,
-  formatEventTimeRange,
-  formatStudentsRegistered
-} from '../data/events'
-import { useRegistrationCount } from '../hooks/useRegistrationCount'
+import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react'
+import { events, eventDate } from '../data/eventArchive'
+import EventGallery from '../components/events/EventGallery'
+import { Reveal } from '../components/events/ArchiveComponents'
+import '../components/events/events.css'
 
-const EventDetails = () => {
-  const { slug } = useParams<{ slug: string }>()
-  const event = events.find((item) => item.slug === slug)
-  const { count, isLoading, error } = useRegistrationCount(event?.registrationCountUrl || '')
-
-  if (!event) {
-    return (
-      <section className="py-24 bg-secondary-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-3xl font-bold text-secondary-900 mb-4">Event Not Found</h1>
-          <p className="text-secondary-600 mb-6">
-            The event you are looking for does not exist or may have been removed.
-          </p>
-          <Link to="/events" className="btn-primary inline-flex items-center justify-center">
-            Back to Events
-          </Link>
-        </div>
-      </section>
-    )
-  }
-
-  const isPastEvent = new Date(event.statusChangeDateTime).getTime() <= Date.now()
-
-  return (
-    <section className="py-16 bg-white overflow-x-hidden">
-      <div className="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8">
-        <div className="bg-white border border-secondary-200 rounded-xl shadow-sm overflow-hidden">
-          <EventPoster imageSrc={event.bannerImage} title={event.title} />
-
-          <div className="p-6 md:p-8">
-            <div className="flex flex-wrap items-center gap-3 mb-4">
-              <span className="px-3 py-1 rounded-full text-sm font-medium bg-cyan-100 text-cyan-800">
-                {event.eventType}
-              </span>
-              {isPastEvent && (
-                <span className="px-3 py-1 rounded-full text-sm font-medium bg-emerald-100 text-emerald-800">
-                  Event Completed
-                </span>
-              )}
-            </div>
-
-            <h1 className="text-3xl md:text-4xl font-bold text-secondary-900 mb-4">{event.title}</h1>
-            <p className="text-lg text-secondary-600 mb-8">{event.description}</p>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-secondary-700 mb-8">
-              <div className="flex items-center space-x-2">
-                <Calendar className="text-primary-600" size={20} />
-                <span>{event.eventDate || formatEventDate(event.startDateTime)}</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Clock className="text-primary-600" size={20} />
-                <span>{formatEventTimeRange(event.startDateTime, event.endDateTime)}</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <UserRound className="text-primary-600" size={20} />
-                <span>{event.speaker}</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <UserRound className="text-primary-600" size={20} />
-                <span>{event.speakerDesignation}</span>
-              </div>
-              <div className="flex items-start space-x-2 md:col-span-2">
-                <MapPin className="text-primary-600 mt-0.5" size={20} />
-                <span>{event.location}</span>
-              </div>
-              <div className="flex items-center space-x-2 md:col-span-2">
-                <Users className="text-primary-600" size={20} />
-                {isLoading && <span>Loading registration count...</span>}
-                {!isLoading && (error || count === null) && <span>Registration count unavailable</span>}
-                {!isLoading && !error && count !== null && <span>{formatStudentsRegistered(count)}</span>}
-              </div>
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-3">
-              {!isPastEvent ? (
-                <Link
-                  to={`/events/${event.slug}/register`}
-                  className="btn-primary inline-flex items-center justify-center"
-                >
-                  Register Now
-                </Link>
-              ) : (
-                <span className="inline-flex items-center justify-center px-4 py-3 rounded-lg bg-secondary-100 text-secondary-700 font-medium">
-                  Registration Closed
-                </span>
-              )}
-
-              <Link to="/events" className="btn-secondary inline-flex items-center justify-center">
-                Back to Events
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  )
+export default function EventDetails() {
+  const { slug } = useParams()
+  const index = events.findIndex(event => event.slug === slug)
+  const event = events[index]
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' })
+    const old = document.title
+    document.title = event ? `${event.title} | JKKNIU Research Society` : 'Event not found | JKKNIURS'
+    return () => { document.title = old }
+  }, [event])
+  if (!event) return <div className="event-experience ea-container ea-not-found container-max"><h1>Event not found</h1><p>This event is not in the archive.</p><Link className="btn-primary" to="/events">Back to Events</Link></div>
+  const previous = events[index + 1]
+  const next = events[index - 1]
+  const information = [['Date', eventDate(event.date)], ['End date', event.endDate && eventDate(event.endDate)], ['Venue', event.venue], ['Mode', event.mode], ['Status', event.status], ['Organizer type', event.organizerType], ['Participants', event.participants]]
+  return <div className="event-experience" key={event.id}><article className="container-max ea-container ea-detail"><Link to={`/events?year=${event.year}#archive`} className="ea-back"><ArrowLeft size={18} /> Back to Events</Link><header className="ea-detail-header"><div className="ea-detail-labels"><span className="ea-eyebrow">{event.category}</span><time dateTime={event.date}>{eventDate(event.date)}</time></div><h1>{event.title}</h1></header>{event.coverImage ? <img className="ea-cover" src={event.coverImage} alt={`${event.title} — event photograph`} loading="eager" /> : <div className="ea-no-photo">No accessible event photograph is available in the archive.</div>}<div className="ea-detail-body"><div><section><span className="ea-eyebrow">The story</span><h2>About the event</h2><p className="ea-description">{event.fullDescription || event.shortDescription}</p></section>{event.speakers.length > 0 && <section><h2>Speakers</h2><div className="ea-people">{event.speakers.map((person, i) => <div key={i}><h3>{person.name}</h3><p>{person.position}</p><p>{person.institution}</p></div>)}</div></section>}{event.guests.length > 0 && <section><h2>Guests</h2>{event.guests.map((person, i) => <div className="ea-person" key={i}><h3>{person.name}</h3><p>{person.role}</p><p>{person.institution}</p></div>)}</section>}{event.highlights.length > 0 && <section><h2>Highlights</h2><ul className="ea-highlights">{event.highlights.map((item, i) => <li key={i}>{item}</li>)}</ul></section>}{event.awards && <section><h2>Awards</h2><p>{event.awards}</p></section>}{event.partners.length > 0 && <section><h2>Partners</h2><ul className="ea-highlights">{event.partners.map((item, i) => <li key={i}>{item}</li>)}</ul></section>}</div><aside><h2>Event information</h2><dl>{information.filter(([, value]) => value).map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>{event.facebookUrl && <a className="ea-source" href={event.facebookUrl} target="_blank" rel="noopener noreferrer">View Original Facebook Post <ArrowUpRight size={20} /></a>}</aside></div><EventGallery images={event.gallery} title={event.title} />{event.poster && <Reveal><section className="ea-poster"><h2>Original Event Poster</h2><img src={event.poster} alt={`${event.title} — original event poster`} loading="lazy" /></section></Reveal>}{event.newsLinks.length > 0 && <section><h2>In the news</h2>{event.newsLinks.map((url, i) => <a key={i} href={url} target="_blank" rel="noopener noreferrer">News source {i + 1} ↗</a>)}</section>}<nav className="ea-event-navigation" aria-label="Adjacent events"><div>{previous && <Link to={`/events/${previous.slug}`}><span><ArrowLeft size={18} /> Previous event</span><strong>{previous.title}</strong></Link>}</div><div>{next && <Link to={`/events/${next.slug}`}><span>Next event <ArrowRight size={18} /></span><strong>{next.title}</strong></Link>}</div></nav></article></div>
 }
-
-const EventPoster = ({ imageSrc, title }: { imageSrc: string; title: string }) => {
-  const [hasLoadError, setHasLoadError] = useState(false)
-
-  if (!imageSrc || hasLoadError) {
-    return (
-      <div className="w-full overflow-hidden rounded-t-xl border-b border-secondary-200 bg-secondary-100">
-        <div className="py-10 text-center">
-          <p className="text-secondary-500 text-sm">Image unavailable</p>
-        </div>
-      </div>
-    )
-  }
-
-  return (
-    <div className="w-full overflow-hidden rounded-t-xl border-b border-secondary-200 bg-white">
-      <img
-        src={imageSrc}
-        alt={`${title} poster`}
-        className="block w-full h-auto max-w-full object-contain"
-        onError={() => setHasLoadError(true)}
-      />
-    </div>
-  )
-}
-
-export default EventDetails
