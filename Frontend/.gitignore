@@ -8,3 +8,6 @@ dist/
 npm-debug.log*
 yarn-error.log*
 .vscode/settings.json
+
+# Local source archive includes private recruitment records; deploy only approved assets.
+/JKKNIURS_All_Committees_Final_Verified_Package_2/

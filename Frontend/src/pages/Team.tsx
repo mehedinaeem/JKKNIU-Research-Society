@@ -1,234 +1,56 @@
-import { ExternalLink } from 'lucide-react'
+import { useState } from 'react'
+import { Search, ArrowRight } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import profiles from '../data/committees.json'
+import emptySeats from '../data/committee-empty-seats.json'
+import CommitteeHero from '../components/team/CommitteeHero'
+import CommitteeSelector from '../components/team/CommitteeSelector'
+import ExecutiveCard from '../components/team/ExecutiveCard'
+import MemberProfileModal from '../components/team/MemberProfileModal'
+import type { Member } from '../components/team/types'
+import '../components/team/team.css'
 
-const Team = () => {
-  // Member data commented out - Coming Soon
-  /*
-  const committees = {
-    '1st': [
-      {
-        id: 1,
-        name: ' ',
-        title: 'President',
-        specialty: 'Research Leadership',
-        department: 'Executive Committee',
-        email: 'president@jkkniu.edu.bd',
-        phone: '',
-        bio: 'Leading the organization and overseeing all research initiatives.',
-        image: '/media/team/1st_committee/president.png'
-      },
-      {
-        id: 2,
-        name: ' ',
-        title: 'Vice President',
-        specialty: 'Research Administration',
-        department: 'Executive Committee',
-        email: 'vp@jkkniu.edu.bd',
-        phone: '',
-        bio: 'Managing research operations and organizing society events.',
-        image: '/media/team/1st_committee/vp.jpg'
-      },
-      {
-        id: 3,
-        name: ' ',
-        title: 'Communication & External Affairs Executive',
-        specialty: 'Communication',
-        department: 'Executive Committee',
-        email: 'communication@jkkniu.edu.bd',
-        phone: '',
-        bio: 'Handling external communications and public relations.',
-        image: '/media/team/1st_committee/comm_external.png'
-      },
-      {
-        id: 4,
-        name: ' ',
-        title: 'Organizing Secretary',
-        specialty: 'Organization',
-        department: 'Executive Committee',
-        email: 'org.sec@jkkniu.edu.bd',
-        phone: '',
-        bio: 'Responsible for organizing events and maintaining records.',
-        image: '/media/team/1st_committee/org_sec.png'
-      },
-      {
-        id: 5,
-        name: ' ',
-        title: 'HR Executive',
-        specialty: 'Human Resources',
-        department: 'Executive Committee',
-        email: 'hr@jkkniu.edu.bd',
-        phone: '',
-        bio: 'Managing human resources and member relations.',
-        image: '/media/team/1st_committee/hr.png'
-      }
-    ],
-    '2nd': [
-      { id: 1, name: 'SUMON SHEIKH', title: 'President', specialty: 'Leadership', department: 'Executive Committee', email: '', phone: '', bio: 'President of 2nd Executive Committee', image: '/media/team/2nd_committee/sumon_sheikh.jpg' },
-      { id: 2, name: 'MD. ABU ERFAN', title: 'General Secretary', specialty: 'Administration', department: 'Executive Committee', email: '', phone: '', bio: 'General Secretary of 2nd Executive Committee', image: '/media/team/2nd_committee/abu_erfan.jpg' },
-      { id: 3, name: 'NISHAT AZAD CHUA', title: 'Vice President (Internal)', specialty: 'Internal Affairs', department: 'Executive Committee', email: '', phone: '', bio: 'Vice President (Internal)', image: '/media/team/2nd_committee/nishat_azad_chua.jpg' },
-      { id: 4, name: 'MD JUNAYETH BHUIYAN', title: 'Vice President (External)', specialty: 'External Affairs', department: 'Executive Committee', email: '', phone: '', bio: 'Vice President (External)', image: '/media/team/2nd_committee/junayeth_bhuiyan.jpg' },
-      { id: 5, name: 'LIVA HAQUE', title: 'Joint Secretary', specialty: 'Coordination', department: 'Executive Committee', email: '', phone: '', bio: 'Joint Secretary', image: '/media/team/2nd_committee/liva_haque.jpg' },
-      { id: 6, name: 'PRODITY PROMA', title: 'Member', specialty: 'Member', department: 'Executive Committee', email: '', phone: '', bio: 'Executive Committee Member', image: '/media/team/2nd_committee/prodity_proma.jpg' },
-      { id: 7, name: 'ABU SAYEM', title: 'Member', specialty: 'Member', department: 'Executive Committee', email: '', phone: '', bio: 'Executive Committee Member', image: '/media/team/2nd_committee/abu_sayem.jpg' },
-      { id: 8, name: 'MD MAHFUZUR RAHMAN MAHIM', title: 'Member', specialty: 'Member', department: 'Executive Committee', email: '', phone: '', bio: 'Executive Committee Member', image: '/media/team/2nd_committee/md_mahmud_mahim.jpg' },
-      { id: 9, name: 'ALI AHMED', title: 'Member', specialty: 'Member', department: 'Executive Committee', email: '', phone: '', bio: 'Executive Committee Member', image: '/media/team/2nd_committee/ali_ahmed.jpg' },
-      { id: 10, name: 'UTSHA PAUL', title: 'Member', specialty: 'Member', department: 'Executive Committee', email: '', phone: '', bio: 'Executive Committee Member', image: '/media/team/2nd_committee/utsha_paul.jpg' }
-    ],
-    '3rd': [
-      { id: 1, name: 'SUMON SHEIKH', title: 'President', specialty: 'Leadership', department: 'Executive Committee', email: '', phone: '', bio: 'President of 3rd Executive Committee', image: '/media/team/3rd_committee/sumon_sheikh.jpg' },
-      { id: 2, name: 'MD. ABU ERFAN', title: 'General Secretary', specialty: 'Administration', department: 'Executive Committee', email: '', phone: '', bio: 'General Secretary of 3rd Executive Committee', image: '/media/team/3rd_committee/abu_erfan.jpg' },
-      { id: 3, name: 'NISHAT AZAD CHUA', title: 'Vice President (Internal)', specialty: 'Internal Affairs', department: 'Executive Committee', email: '', phone: '', bio: 'Vice President (Internal)', image: '/media/team/3rd_committee/nishat_azad_chua.jpg' },
-      { id: 4, name: 'MD JUNAYETH BHUIYAN', title: 'Vice President (External)', specialty: 'External Affairs', department: 'Executive Committee', email: '', phone: '', bio: 'Vice President (External)', image: '/media/team/3rd_committee/junayeth_bhuiyan.jpg' },
-      { id: 5, name: 'LIVA HAQUE', title: 'Joint Secretary', specialty: 'Coordination', department: 'Executive Committee', email: '', phone: '', bio: 'Joint Secretary', image: '/media/team/3rd_committee/liva_haque.jpg' },
-      { id: 6, name: 'PRODITY PROMA', title: 'Member', specialty: 'Member', department: 'Executive Committee', email: '', phone: '', bio: 'Executive Committee Member', image: '/media/team/3rd_committee/prodity_proma.jpg' },
-      { id: 7, name: 'ABU SAYEM', title: 'Member', specialty: 'Member', department: 'Executive Committee', email: '', phone: '', bio: 'Executive Committee Member', image: '/media/team/3rd_committee/abu_sayem.jpg' },
-      { id: 8, name: 'MD MAHFUZUR RAHMAN MAHIM', title: 'Member', specialty: 'Member', department: 'Executive Committee', email: '', phone: '', bio: 'Executive Committee Member', image: '/media/team/3rd_committee/md_mahmud_mahim.jpg' },
-      { id: 9, name: 'ALI AHMED', title: 'Member', specialty: 'Member', department: 'Executive Committee', email: '', phone: '', bio: 'Executive Committee Member', image: '/media/team/3rd_committee/ali_ahmed.jpg' },
-      { id: 10, name: 'UTSHA PAUL', title: 'Member', specialty: 'Member', department: 'Executive Committee', email: '', phone: '', bio: 'Executive Committee Member', image: '/media/team/3rd_committee/utsha_paul.jpg' }
-    ],
-    '4th': [
-      { id: 1, name: 'TBD', title: 'President', image: '👨‍💼', bio: '4th Committee President', email: '', phone: '' },
-      { id: 2, name: 'TBD', title: 'General Secretary', image: '👨‍💻', bio: '4th Committee GS', email: '', phone: '' }
-    ],
-    '5th': [
-      { id: 1, name: 'MD. SOJIB', title: 'President', image: '👨‍💼', bio: 'Current President', email: '', phone: '' },
-      { id: 2, name: 'TBD', title: 'General Secretary', image: '👨‍💻', bio: 'Current GS', email: '', phone: '' }
-    ]
+const members: Member[] = profiles
+const placeholders: Member[] = emptySeats.map(seat => ({
+  ...seat, id: `${seat.committee}-${String(seat.order).padStart(2, '0')}`,
+  person_id: '', name: '', official_name: '', group: '', department: '',
+  faculty: '', session: '', bio: '', bio_status: '', image: '', social_links: {},
+}))
+const isSenior = (member: Member) => /^(president|vice[ -]?president(?:\b|\s*\()|general secretary$)/i.test(member.position)
+
+export default function Team() {
+  const [committee, setCommittee] = useState('6th')
+  const [search, setSearch] = useState('')
+  const [activeMember, setActiveMember] = useState<Member | null>(null)
+  const selected = [...members, ...placeholders].filter(member => member.committee === committee).sort((a, b) => a.order - b.order)
+  const filtered = selected.filter(member => `${member.name} ${member.position}`.toLocaleLowerCase().includes(search.trim().toLocaleLowerCase()))
+  const namedCount = selected.filter(member => member.name).length
+  const featured = committee === '1st' ? [] : filtered.filter(isSenior)
+  // Keep archive serials intact while grouping fifth-committee Vice-Presidents before the General Secretary.
+  if (committee === '5th') {
+    const leadershipRank = (member: Member) => member.position === 'President' ? 0 : member.position === 'General Secretary' ? 2 : 1
+    featured.sort((a, b) => leadershipRank(a) - leadershipRank(b) || a.order - b.order)
   }
-  */
+  const remaining = committee === '1st' ? filtered : filtered.filter(member => !isSenior(member))
+  const selectCommittee = (term: string) => { setCommittee(term); setSearch('') }
 
-  const departments = [
-    {
-      name: 'Computer Science',
-      // members: ['Dr. Mohammad Rahman', 'Prof. Fatima Ahmed'],
-      focusAreas: ['AI & ML', 'Data Science', 'Software Engineering']
-    },
-    {
-      name: 'Environmental Studies',
-      // members: ['Dr. Karim Hossain'],
-      focusAreas: ['Climate Research', 'Biodiversity', 'Sustainability']
-    },
-    {
-      name: 'Life Sciences',
-      // members: ['Dr. Ayesha Islam'],
-      focusAreas: ['Biotechnology', 'Genetics', 'Bioinformatics']
-    },
-    {
-      name: 'Social Sciences',
-      // members: ['Prof. Nadia Chowdhury'],
-      focusAreas: ['Education', 'Sociology', 'Cultural Studies']
-    },
-    {
-      name: 'Engineering',
-      // members: ['Dr. Tanvir Ahmed'],
-      focusAreas: ['Renewable Energy', 'IoT', 'Manufacturing']
-    },
-    {
-      name: 'Bangla',
-      focusAreas: ['Literature', 'Linguistics', 'Cultural Heritage']
-    },
-    {
-      name: 'Statistics',
-      focusAreas: ['Data Analysis', 'Research Methodology', 'Applied Statistics']
-    },
-    {
-      name: 'Business Studies',
-      focusAreas: ['Management', 'Marketing', 'Entrepreneurship']
-    },
-    {
-      name: 'Arts & Culture',
-      focusAreas: ['Visual Arts', 'Performing Arts', 'Cultural Studies']
-    }
-  ]
-
-  // const committeeKeys = ['5th', '4th', '3rd', '2nd', '1st']
-
-  return (
-    <div>
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary-50 to-secondary-50 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-secondary-900 mb-6">
-              Our Team
-            </h1>
-            <p className="text-xl text-secondary-600 max-w-3xl mx-auto">
-              Meet the dedicated researchers, scholars, and professionals who make JKKNIU Research Society a center of excellence.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Leadership / Executive Committee */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold text-secondary-900 mb-4">Executive Committee</h2>
-            <p className="text-lg text-secondary-600 mb-12">
-              Leading the way year after year
-            </p>
-
-            {/* Coming Soon Message */}
-            <div className="flex flex-col items-center justify-center py-20">
-              <div className="w-24 h-24 mb-6 rounded-full bg-gradient-to-br from-primary-100 to-primary-200 flex items-center justify-center">
-                <span className="text-5xl">👥</span>
-              </div>
-              <h3 className="text-2xl font-bold text-secondary-800 mb-3">Coming Soon</h3>
-              <p className="text-secondary-600 max-w-md">
-                We're working on introducing our amazing team members. Stay tuned for updates!
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Research Departments */}
-      <section className="py-16 bg-secondary-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-12">
-            <h2 className="text-3xl font-bold text-secondary-900 mb-4">Research Departments</h2>
-            <p className="text-lg text-secondary-600">
-              Organized research groups across multiple disciplines
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {departments.map((dept, index) => (
-              <div key={index} className="bg-white border border-secondary-200 rounded-lg p-6 hover:shadow-lg transition-shadow">
-                <h3 className="text-xl font-bold text-secondary-900 mb-4">{dept.name}</h3>
-                <div>
-                  <h4 className="font-semibold text-secondary-800 mb-2 text-sm">Focus Areas:</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {dept.focusAreas.map((area, idx) => (
-                      <span key={idx} className="bg-primary-100 text-primary-800 px-3 py-1 rounded-full text-xs font-medium">
-                        {area}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Careers */}
-      <section className="py-16 bg-primary-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold mb-4">Join Our Team</h2>
-          <p className="text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
-            We're always looking for talented researchers, professionals, and support staff
-            to join our growing team. Check out current openings.
-          </p>
-          <a
-            href="#"
-            className="inline-flex items-center bg-white text-primary-600 hover:bg-primary-50 font-semibold py-3 px-8 rounded-lg transition-colors duration-200"
-          >
-            View Careers <ExternalLink className="ml-2" size={20} />
-          </a>
-        </div>
-      </section>
-    </div>
-  )
+  return <div className="committee-page">
+    <CommitteeHero />
+    <section id="committee-directory" className="committee-directory committee-shell" aria-labelledby="executive-heading" data-navbar-theme="light">
+      <div className="committee-section-intro"><p className="committee-eyebrow">A legacy of leadership</p><h2 id="executive-heading">Six chapters. One shared purpose.</h2><p>Discover the people who have shaped our research community.</p></div>
+      <CommitteeSelector selected={committee} onSelect={selectCommittee} />
+      <div className="committee-heading"><div><p className="committee-eyebrow">{committee === '6th' ? 'Leading the way today' : 'From our committee archive'}</p><h2>{committee} Executive Committee</h2></div><span className="committee-member-count">{namedCount} named members <span aria-hidden="true">/</span> {committee === '6th' ? 'Current committee' : 'Historical committee'}</span></div>
+      {committee === '1st' && <p className="committee-archive-note">13 confirmed members across 18 historical positions. Five unresolved identities are shown as blank cards in their original positions.</p>}
+      <div className="committee-tools"><label className="committee-search"><Search size={19} aria-hidden="true" /><span className="sr-only">Search this committee by name or position</span><input type="search" placeholder="Search by name or position…" value={search} onChange={event => setSearch(event.target.value)} /></label>
+      </div>
+      <p className="committee-results-count" role="status" aria-live="polite">Showing {filtered.filter(member => member.name).length} of {namedCount} members{committee === '1st' && !search.trim() ? ' · 18 historical positions' : ''}</p>
+      <div id="committee-directory-results" key={`${committee}-${search}`}>
+        {featured.length > 0 && <section className="committee-leadership" aria-labelledby="leadership-heading"><div className="committee-subheading"><h3 id="leadership-heading">Meet the leadership</h3><span>Guiding our shared vision</span></div><div className="committee-featured-grid">{featured.map((member, index) => <ExecutiveCard key={member.id} member={member} featured index={index} onOpen={setActiveMember} />)}</div></section>}
+        {remaining.length > 0 && <section aria-labelledby="members-heading"><div className="committee-subheading"><h3 id="members-heading">The committee</h3><span>Working together. Moving forward.</span></div><div className="committee-member-grid">{remaining.map((member, index) => <ExecutiveCard key={member.id} member={member} index={index} onOpen={setActiveMember} />)}</div></section>}
+        {filtered.length === 0 && <div className="committee-empty"><h3>No matching members</h3><p>Try another name or position.</p><button type="button" onClick={() => { setSearch('') }}>Clear search</button></div>}
+      </div>
+    </section>
+    <section className="committee-invitation"><div className="committee-shell"><div><p className="committee-eyebrow">Your curiosity belongs here</p><h2>Be part of what comes next.</h2><p>Connect with a community built around research and collaboration.</p></div><Link to="/contact">Get in touch <ArrowRight size={19} aria-hidden="true" /></Link></div></section>
+    {activeMember && <MemberProfileModal member={activeMember} onClose={() => setActiveMember(null)} />}
+  </div>
 }
-
-export default Team

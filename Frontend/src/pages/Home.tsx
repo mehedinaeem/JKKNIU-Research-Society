@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 import HeroSection from '../components/HeroSection'
+import CurrentExecutiveCommittee from '../components/team/CurrentExecutiveCommittee'
 
 const Home = () => {
   const researchAreas = [
@@ -95,6 +96,8 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      <CurrentExecutiveCommittee />
 
       {/* Stats Section */}
       <section id="stats" data-navbar-theme="dark" className="py-16 bg-primary-600 text-white">
