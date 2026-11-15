@@ -73,3 +73,7 @@ Homepage President background removal: the built-in image-generation editor prod
 Final image-edit prompt (built-in tool, transparent-background mode):
 
 > Use case: background-extraction. Edit target: the supplied professional conference photograph of Md Mehedi Hasan Naeem. Create a clean photographic cutout of ONLY the same man, removing the entire conference backdrop, all background lettering and logos. Actual transparent alpha background. Preserve the person's face, facial features, identity, hairstyle, beard, skin tone, expression, pose, suit, shirt, lanyard, watch, hands, proportions and photographic texture as closely as possible to the original. Do not beautify, redraw, restyle, change clothing or add objects. Preserve full original subject framing and natural fine hair/edge detail, no opaque background, no checkerboard baked in, no halo. Asset is for his existing university society landing-page card.
+
+First-committee hierarchy revision: display order is now President, all Vice-Presidents (including the unresolved seat), General Secretary, Joint Secretaries, Organizing Secretaries, Treasurer, then other executive roles. Ties retain original archive order and all archive serial numbers are preserved. All 18 cards, including five unresolved seats, remain in the view.
+
+Small-screen update: at widths up to 600px, both the homepage committee grid and `/team` display one card per row. All six committee selector buttons appear in a two-column, three-row layout without horizontal scrolling. All 18 current members remain in the regular page flow.

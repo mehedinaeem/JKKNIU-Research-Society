@@ -5,7 +5,7 @@ import type { Member } from './types'
 export default function ExecutiveCard({ member, onOpen, featured = false, index = 0 }: {
   member: Member; onOpen: (member: Member) => void; featured?: boolean; index?: number
 }) {
-  if (!member.name) return <div className="executive-card executive-card-placeholder" aria-label={`Position ${member.order}, ${member.position}; profile unavailable`}>
+  if (!member.name) return <div className={`executive-card executive-card-placeholder ${featured ? 'executive-card-featured' : ''}`} aria-label={`Position ${member.order}, ${member.position}; profile unavailable`}>
     <div className="executive-portrait" aria-hidden="true"><Users className="executive-placeholder-icon" strokeWidth={1.25} /><span className="executive-number">{String(member.order).padStart(2, '0')}</span></div>
     <div className="executive-card-copy"><p className="executive-position">{member.position}</p><span className="executive-placeholder-space" aria-hidden="true" /></div>
   </div>
